@@ -1,13 +1,12 @@
 name: smart_attendance_student
 description: A college project.
 
-publish_to: 'none' 
-
+publish_to: "none"
 
 version: 0.0.1+1
 
 environment:
-  sdk: '>=2.18.5 <3.0.0'
+  sdk: ">=2.18.5 <3.0.0"
 
 dependencies:
   flutter:
@@ -19,17 +18,12 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
-
   flutter_lints: ^2.0.0
 
-
 flutter:
-
-
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
+  assets:
+    - assets/images/google.png
   #   - images/a_dot_ham.jpeg
-
