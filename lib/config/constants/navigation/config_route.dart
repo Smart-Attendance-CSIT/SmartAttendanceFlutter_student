@@ -12,7 +12,7 @@ class RouteGenerator {
     switch (settings.name) {
       case valLoginScreen:
         return MaterialPageRoute(
-            builder: ((BuildContext context) => const LoginScreen()));
+            builder: ((BuildContext context) => LoginScreen()));
       case valHomeScreen:
         return MaterialPageRoute(
             builder: ((BuildContext context) => const HomeScreen()));
