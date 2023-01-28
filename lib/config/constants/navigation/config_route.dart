@@ -4,6 +4,7 @@ import 'package:smart_attendance_student/presentation/screens/error.dart';
 import 'package:smart_attendance_student/presentation/screens/home.dart';
 import 'package:smart_attendance_student/presentation/screens/login.dart';
 import 'package:smart_attendance_student/presentation/screens/splash_screen.dart';
+import 'package:smart_attendance_student/presentation/screens/class_screen.dart';
 
 // This class generates routes for each nav constants for using named routes.
 class RouteGenerator {
@@ -19,6 +20,10 @@ class RouteGenerator {
       case valSplashScreen:
         return MaterialPageRoute(
             builder: ((BuildContext context) => const SplashScreen()));
+      case valClassScreen:
+        return MaterialPageRoute(
+            builder: ((BuildContext context) => const ClassScreen()));
+
       default:
         return _errorRoute();
     }
