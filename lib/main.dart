@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
         brightness: Brightness.light,
         primarySwatch: Colors.purple,
       ),
-      initialRoute: valClassScreen,
+      initialRoute: valSplashScreen,
       onGenerateRoute: RouteGenerator.generateRoute,
     );
   }

@@ -10,7 +10,7 @@ class MyButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      child: Center(
+      child: const Center(
           child: Text(
         'Log In',
         style: TextStyle(

@@ -21,10 +21,10 @@ class _ClassScreenState extends State<ClassScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.purple,
-        title: Text('Class 1'),
+        title: const Text('Class 1'),
         leading: IconButton(
           onPressed: (() {}),
-          icon: Icon(
+          icon: const Icon(
             Icons.menu,
           ),
         ),
@@ -35,8 +35,8 @@ class _ClassScreenState extends State<ClassScreen> {
             TableCalendar(
               locale: 'en_us',
               rowHeight: 50,
-              headerStyle:
-                  HeaderStyle(formatButtonVisible: false, titleCentered: true),
+              headerStyle: const HeaderStyle(
+                  formatButtonVisible: false, titleCentered: true),
               availableGestures: AvailableGestures.all,
               selectedDayPredicate: ((day) => isSameDay(day, today)),
               focusedDay: today,
@@ -50,50 +50,3 @@ class _ClassScreenState extends State<ClassScreen> {
     );
   }
 }
-
-// class ClassScreen extends StatefulWidget {
-//   ClassScreen({super.key});
-//   DateTime today = DateTime.now();
-//   void _onDaySelected(DateTime day, DateTime focusedDay) {
-//     sets
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         backgroundColor: Colors.purple,
-//         title: Text('Class 1'),
-//         leading: IconButton(
-//           onPressed: (() {}),
-//           icon: Icon(
-//             Icons.menu,
-//           ),
-//         ),
-//       ),
-//       body: Center(
-//         child: Container(
-//           child: Column(children: [
-//             TableCalendar(
-//               locale: 'en_us',
-//               rowHeight: 50,
-//               headerStyle:
-//                   HeaderStyle(formatButtonVisible: false, titleCentered: true),
-//               availableGestures: AvailableGestures.all,
-//               focusedDay: today,
-//               firstDay: DateTime.utc(2010, 10, 16),
-//               lastDay: DateTime.utc(2030, 3, 13),
-//               onDaySelected: _onDaySelected,
-//             )
-//           ]),
-//         ),
-//       ),
-//     );
-//   }
-  
-//   @override
-//   State<StatefulWidget> createState() {
-//     // TODO: implement createState
-//     throw UnimplementedError();
-//   }
-// }

@@ -60,6 +60,7 @@ class HomeScreen extends StatelessWidget {
                       shadowColor: Colors.black,
                       color: Colors.white,
                       child: ListTile(
+                        onTap: (() => jumpToClassScreen(context)),
                         title: Text(
                           name[index].toString(),
                           style: TextStyle(
@@ -85,6 +86,7 @@ class HomeScreen extends StatelessWidget {
               onPressed: (() {}),
               child: Icon(
                 Icons.qr_code_scanner,
+                size: 40,
               ),
             ),
           )

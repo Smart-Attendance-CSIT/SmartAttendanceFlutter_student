@@ -23,7 +23,7 @@ class MyTextField extends StatelessWidget {
         obscureText: obscuredText,
         decoration: InputDecoration(
             prefixIcon: prefixicon,
-            enabledBorder: OutlineInputBorder(
+            enabledBorder: const OutlineInputBorder(
               borderSide: BorderSide(color: Colors.white),
             ),
             focusedBorder: OutlineInputBorder(

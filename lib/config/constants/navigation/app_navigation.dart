@@ -16,3 +16,7 @@ void jumpToLoginScreen(BuildContext context) {
   Navigator.of(context)
       .pushNamedAndRemoveUntil(valLoginScreen, (route) => false);
 }
+
+void jumpToClassScreen(BuildContext context) {
+  Navigator.of(context).pushNamed(valClassScreen);
+}

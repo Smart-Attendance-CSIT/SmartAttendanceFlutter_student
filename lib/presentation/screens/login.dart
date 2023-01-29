@@ -38,7 +38,7 @@ class LoginScreen extends StatelessWidget {
                 ),
               ),
 
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
 
               //userfield
               MyTextField(
@@ -116,7 +116,7 @@ class LoginScreen extends StatelessWidget {
               //google
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: [
+                children: const [
                   SquareTile(imagePath: 'assets/images/google.png'),
                 ],
               ),
