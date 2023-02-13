@@ -1,5 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.project.smart_attendance_student">
+    <uses-permission android:name="android.permission.CAMERA" />
+
    <application
         android:label="smart_attendance_student"
         android:name="${applicationName}"
