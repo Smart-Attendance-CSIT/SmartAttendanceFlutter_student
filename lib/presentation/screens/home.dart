@@ -46,13 +46,14 @@ class _HomeScreenState extends State<HomeScreen> {
     ];
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(100),
+        preferredSize: Size.fromHeight(60),
         child: AppBar(
-          backgroundColor: Colors.purple,
-          elevation: 10,
+          centerTitle: true,
+          backgroundColor: Colors.deepPurple,
+          elevation: 8,
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.only(
-            bottomLeft: Radius.circular(50),
+            bottomLeft: Radius.circular(30),
           )),
           title: Text(
             "Attendance",
@@ -64,7 +65,7 @@ class _HomeScreenState extends State<HomeScreen> {
           actions: const [
             Icon(
               Icons.person,
-              size: 45,
+              size: 50,
               color: Colors.black,
             ),
           ],
