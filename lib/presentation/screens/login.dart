@@ -19,7 +19,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final emailController = TextEditingController();
 
   final passwordController = TextEditingController();
-  bool _hidePassword = false;
+  bool _hidePassword = true;
 
   //logUser In method
   void logIn() {}
@@ -30,61 +30,41 @@ class _LoginScreenState extends State<LoginScreen> {
       backgroundColor: Colors.grey[300],
       body: SingleChildScrollView(
         child: SafeArea(
-          child: Center(
-            child: Form(
-              key: _formKey,
-              child: Column(children: [
-                const SizedBox(height: 50),
+          child: Container(
+            padding: const EdgeInsets.all(20),
+            child: Center(
+              child: Form(
+                key: _formKey,
+                child: Column(children: [
+                  const SizedBox(height: 50),
 
-                //logo
-                Icon(Icons.person, size: 100),
+                  //logo
+                  const Icon(Icons.person, size: 100),
 
-                //Welcome back,you've been missed!
-                Text(
-                  'Welcome back you\'ve been missed!',
-                  style: TextStyle(
-                    color: Colors.grey[700],
-                    fontSize: 16,
-                  ),
-                ),
-
-                const SizedBox(height: 10),
-
-                //userfield
-                TextFormField(
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please Enter Email';
-                    }
-                    if (!value.contains('@')) {
-                      return 'Please Enter valid email';
-                    }
-                  },
-                  decoration: InputDecoration(
-                    hintText: 'Enter Email',
-                    enabledBorder: const OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.white),
+                  //Welcome back,you've been missed!
+                  Text(
+                    'Welcome back you\'ve been missed!',
+                    style: TextStyle(
+                      color: Colors.grey[700],
+                      fontSize: 16,
                     ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.grey.shade400),
-                    ),
-                    fillColor: Colors.grey.shade200,
-                    filled: true,
                   ),
-                ),
 
-                const SizedBox(height: 10),
+                  const SizedBox(height: 10),
 
-                //passwordfield
-                TextFormField(
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please Enter Password';
-                    }
-                  },
-                  obscureText: _hidePassword,
-                  decoration: InputDecoration(
-                      hintText: 'Enter Password',
+                  //userfield
+                  TextFormField(
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please Enter Email';
+                      }
+                      if (!value.contains('@')) {
+                        return 'Please Enter valid email';
+                      }
+                    },
+                    decoration: InputDecoration(
+                      prefixIcon: Icon(Icons.email),
+                      hintText: 'Enter Email',
                       enabledBorder: const OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.white),
                       ),
@@ -93,97 +73,126 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       fillColor: Colors.grey.shade200,
                       filled: true,
-                      suffixIcon: IconButton(
-                        onPressed: () {
-                          setState(() {
-                            _hidePassword = !_hidePassword;
-                          });
-                        },
-                        icon: (_hidePassword)
-                            ? Icon(Icons.remove_red_eye)
-                            : Icon(Icons.remove_red_eye_outlined),
-                      )),
-                ),
-
-                const SizedBox(height: 10),
-
-                //forget password?
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 25),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Text(
-                        'Forget Password?',
-                        style: TextStyle(color: Colors.grey[600]),
-                      ),
-                    ],
+                    ),
                   ),
-                ),
 
-                const SizedBox(height: 10),
+                  const SizedBox(height: 10),
 
-                //sign in button
-                ElevatedButton(
-                    onPressed: () {
-                      if (_formKey.currentState!.validate()) {
-                        jumpToHomeScreen(context);
+                  //passwordfield
+                  TextFormField(
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please Enter Password';
                       }
-                      // if (emailController.text.isEmpty) {
-                      //   print(
-                      //       'Value is Available ${emailController.text.trim()}');
-                      // } else if (emailController.text.isNotEmpty) {
-                      //   return jumpToHomeScreen(context);
-                      // }j
                     },
-                    child: const Text(
-                      'LogIn',
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold),
-                    )),
+                    obscureText: _hidePassword,
+                    decoration: InputDecoration(
+                        prefixIcon: Icon(Icons.lock),
+                        hintText: 'Enter Password',
+                        enabledBorder: const OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.white),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.grey.shade400),
+                        ),
+                        fillColor: Colors.grey.shade200,
+                        filled: true,
+                        suffixIcon: IconButton(
+                          onPressed: () {
+                            setState(() {
+                              _hidePassword = !_hidePassword;
+                            });
+                          },
+                          icon: (_hidePassword)
+                              ? const Icon(Icons.remove_red_eye)
+                              : const Icon(Icons.remove_red_eye_outlined),
+                        )),
+                  ),
 
-                const SizedBox(height: 50),
+                  const SizedBox(height: 10),
 
-                //or continue with
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 25),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: Divider(
-                          thickness: 0.5,
-                          color: Colors.grey.shade400,
+                  //forget password?
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 25),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Text(
+                          'Forget Password?',
+                          style: TextStyle(color: Colors.grey[600]),
                         ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                        child: Text(
-                          'Or continue with',
-                          style: TextStyle(color: Colors.grey.shade700),
+                      ],
+                    ),
+                  ),
+
+                  const SizedBox(height: 10),
+
+                  //sign in button
+                  SizedBox(
+                    height: 50,
+                    width: 500,
+                    child: ElevatedButton(
+                        onPressed: () {
+                          if (_formKey.currentState!.validate()) {
+                            jumpToHomeScreen(context);
+                          }
+                          // if (emailController.text.isEmpty) {
+                          //   print(
+                          //       'Value is Available ${emailController.text.trim()}');
+                          // } else if (emailController.text.isNotEmpty) {
+                          //   return jumpToHomeScreen(context);
+                          // }j
+                        },
+                        child: const Text(
+                          'LogIn',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold),
+                        )),
+                  ),
+
+                  const SizedBox(height: 50),
+
+                  //or continue with
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 25),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: Divider(
+                            thickness: 0.5,
+                            color: Colors.grey.shade400,
+                          ),
                         ),
-                      ),
-                      Expanded(
-                        child: Divider(
-                          thickness: 0.5,
-                          color: Colors.grey.shade400,
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                          child: Text(
+                            'Or continue with',
+                            style: TextStyle(color: Colors.grey.shade700),
+                          ),
                         ),
-                      ),
+                        Expanded(
+                          child: Divider(
+                            thickness: 0.5,
+                            color: Colors.grey.shade400,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  SizedBox(height: 50),
+
+                  //google
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: const [
+                      SquareTile(imagePath: 'assets/images/google.png'),
                     ],
                   ),
-                ),
-
-                SizedBox(height: 50),
-
-                //google
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
-                    SquareTile(imagePath: 'assets/images/google.png'),
-                  ],
-                ),
-              ]),
+                ]),
+              ),
             ),
           ),
         ),
