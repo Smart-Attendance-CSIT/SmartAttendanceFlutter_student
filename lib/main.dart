@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
       title: 'Smart Attendance',
       theme: ThemeData(
         brightness: Brightness.light,
-        primarySwatch: Colors.purple,
+        primarySwatch: Colors.deepPurple,
       ),
       initialRoute: valSplashScreen,
       onGenerateRoute: RouteGenerator.generateRoute,
