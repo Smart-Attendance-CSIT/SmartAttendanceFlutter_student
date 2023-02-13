@@ -6,12 +6,20 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:smart_attendance_student/config/constants/navigation/app_navigation.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   LoginScreen({super.key});
 
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  final _formKey = GlobalKey<FormState>();
 //text editing controllers
-  final usernameController = TextEditingController();
+  final emailController = TextEditingController();
+
   final passwordController = TextEditingController();
+  bool _hidePassword = false;
 
   //logUser In method
   void logIn() {}
@@ -23,104 +31,160 @@ class LoginScreen extends StatelessWidget {
       body: SingleChildScrollView(
         child: SafeArea(
           child: Center(
-            child: Column(children: [
-              const SizedBox(height: 50),
+            child: Form(
+              key: _formKey,
+              child: Column(children: [
+                const SizedBox(height: 50),
 
-              //logo
-              Icon(Icons.person, size: 100),
+                //logo
+                Icon(Icons.person, size: 100),
 
-              //Welcome back,you've been missed!
-              Text(
-                'Welcome back you\'ve been missed!',
-                style: TextStyle(
-                  color: Colors.grey[700],
-                  fontSize: 16,
+                //Welcome back,you've been missed!
+                Text(
+                  'Welcome back you\'ve been missed!',
+                  style: TextStyle(
+                    color: Colors.grey[700],
+                    fontSize: 16,
+                  ),
                 ),
-              ),
 
-              const SizedBox(height: 10),
+                const SizedBox(height: 10),
 
-              //userfield
-              MyTextField(
-                obscuredText: false,
-                hintText: 'Username',
-                controller: usernameController,
-                prefixicon: const Icon(Icons.person),
-              ),
-
-              const SizedBox(height: 10),
-
-              //passwordfield
-              MyTextField(
-                controller: passwordController,
-                hintText: 'Password',
-                obscuredText: true,
-                prefixicon: const Icon(Icons.lock),
-              ),
-
-              const SizedBox(height: 10),
-
-              //forget password?
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 25),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Text(
-                      'Forget Password?',
-                      style: TextStyle(color: Colors.grey[600]),
+                //userfield
+                TextFormField(
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please Enter Email';
+                    }
+                    if (!value.contains('@')) {
+                      return 'Please Enter valid email';
+                    }
+                  },
+                  decoration: InputDecoration(
+                    hintText: 'Enter Email',
+                    enabledBorder: const OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.white),
                     ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.grey.shade400),
+                    ),
+                    fillColor: Colors.grey.shade200,
+                    filled: true,
+                  ),
+                ),
+
+                const SizedBox(height: 10),
+
+                //passwordfield
+                TextFormField(
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please Enter Password';
+                    }
+                  },
+                  obscureText: _hidePassword,
+                  decoration: InputDecoration(
+                      hintText: 'Enter Password',
+                      enabledBorder: const OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.white),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.grey.shade400),
+                      ),
+                      fillColor: Colors.grey.shade200,
+                      filled: true,
+                      suffixIcon: IconButton(
+                        onPressed: () {
+                          setState(() {
+                            _hidePassword = !_hidePassword;
+                          });
+                        },
+                        icon: (_hidePassword)
+                            ? Icon(Icons.remove_red_eye)
+                            : Icon(Icons.remove_red_eye_outlined),
+                      )),
+                ),
+
+                const SizedBox(height: 10),
+
+                //forget password?
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 25),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Text(
+                        'Forget Password?',
+                        style: TextStyle(color: Colors.grey[600]),
+                      ),
+                    ],
+                  ),
+                ),
+
+                const SizedBox(height: 10),
+
+                //sign in button
+                ElevatedButton(
+                    onPressed: () {
+                      if (_formKey.currentState!.validate()) {
+                        jumpToHomeScreen(context);
+                      }
+                      // if (emailController.text.isEmpty) {
+                      //   print(
+                      //       'Value is Available ${emailController.text.trim()}');
+                      // } else if (emailController.text.isNotEmpty) {
+                      //   return jumpToHomeScreen(context);
+                      // }j
+                    },
+                    child: const Text(
+                      'LogIn',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold),
+                    )),
+
+                const SizedBox(height: 50),
+
+                //or continue with
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 25),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Divider(
+                          thickness: 0.5,
+                          color: Colors.grey.shade400,
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                        child: Text(
+                          'Or continue with',
+                          style: TextStyle(color: Colors.grey.shade700),
+                        ),
+                      ),
+                      Expanded(
+                        child: Divider(
+                          thickness: 0.5,
+                          color: Colors.grey.shade400,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+
+                SizedBox(height: 50),
+
+                //google
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: const [
+                    SquareTile(imagePath: 'assets/images/google.png'),
                   ],
                 ),
-              ),
-
-              const SizedBox(height: 10),
-
-              //sign in button
-              MyButton(
-                onTap: logIn,
-              ),
-
-              const SizedBox(height: 50),
-
-              //or continue with
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 25),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: Divider(
-                        thickness: 0.5,
-                        color: Colors.grey.shade400,
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                      child: Text(
-                        'Or continue with',
-                        style: TextStyle(color: Colors.grey.shade700),
-                      ),
-                    ),
-                    Expanded(
-                      child: Divider(
-                        thickness: 0.5,
-                        color: Colors.grey.shade400,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-
-              SizedBox(height: 50),
-
-              //google
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
-                  SquareTile(imagePath: 'assets/images/google.png'),
-                ],
-              ),
-            ]),
+              ]),
+            ),
           ),
         ),
       ),
