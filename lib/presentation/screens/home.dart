@@ -4,9 +4,34 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:smart_attendance_student/main.dart';
 import 'package:smart_attendance_student/config/constants/navigation/app_navigation.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  var getResult = 'QR Code Result';
+  void scanQRCode() async {
+    try {
+      final qrCode = await FlutterBarcodeScanner.scanBarcode(
+          '#ff6666', 'Cancel', true, ScanMode.QR);
+
+      if (!mounted) return;
+
+      setState(() {
+        getResult = qrCode;
+      });
+      print("QRCode_Result:--");
+      print(qrCode);
+    } on PlatformException {
+      getResult = 'Failed to scan QR Code.';
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -18,9 +43,6 @@ class HomeScreen extends StatelessWidget {
       'Class 1',
       'Class 2',
       'Class 3',
-      'Class 4',
-      'Class 5',
-      'Class 6'
     ];
     return Scaffold(
       appBar: PreferredSize(
@@ -39,12 +61,21 @@ class HomeScreen extends StatelessWidget {
               fontSize: 30,
             ),
           ),
-          actions: <Widget>[
-            CircleAvatar(
-              backgroundImage: AssetImage('assets/images/sadikshya.png'),
-              radius: 30,
-            )
+          actions: const [
+            Icon(
+              Icons.person,
+              size: 45,
+              color: Colors.black,
+            ),
           ],
+          // actions:
+          // Icon(Icons.person)
+          // <Widget>[
+          //   CircleAvatar(
+          //     backgroundImage: AssetImage('assets/images/sadikshya.png'),
+          //     radius: 30,
+          //   )
+          // ],
         ),
       ),
       body: Center(
@@ -83,13 +114,15 @@ class HomeScreen extends StatelessWidget {
             height: 100,
             width: 100,
             child: FloatingActionButton(
-              onPressed: (() {}),
+              onPressed: () {
+                scanQRCode();
+              },
               child: Icon(
                 Icons.qr_code_scanner,
                 size: 40,
               ),
             ),
-          )
+          ),
         ]),
       ),
     );
