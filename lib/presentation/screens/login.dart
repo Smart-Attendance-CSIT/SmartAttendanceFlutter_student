@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:smart_attendance_student/data/api_interface.dart';
+import 'package:smart_attendance_student/models/login_params.dart';
 import 'package:smart_attendance_student/presentation/screens/widgets/my_button.dart';
 import 'package:smart_attendance_student/presentation/screens/widgets/my_textfield.dart';
 import 'package:smart_attendance_student/presentation/screens/widgets/square_tile.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:smart_attendance_student/config/constants/navigation/app_navigation.dart';
+
+import '../../models/student_response_model.dart';
 
 class LoginScreen extends StatefulWidget {
   LoginScreen({super.key});
@@ -39,7 +43,11 @@ class _LoginScreenState extends State<LoginScreen> {
                   const SizedBox(height: 50),
 
                   //logo
-                  const Icon(Icons.person, size: 100),
+                  const Icon(
+                    Icons.account_circle,
+                    size: 100,
+                    color: Colors.deepPurple,
+                  ),
 
                   //Welcome back,you've been missed!
                   Text(
@@ -134,14 +142,15 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: ElevatedButton(
                         onPressed: () {
                           if (_formKey.currentState!.validate()) {
-                            jumpToHomeScreen(context);
+                            login(Loginparams(
+                                email: emailController.text,
+                                password: passwordController.text));
                           }
+
                           // if (emailController.text.isEmpty) {
                           //   print(
                           //       'Value is Available ${emailController.text.trim()}');
-                          // } else if (emailController.text.isNotEmpty) {
-                          //   return jumpToHomeScreen(context);
-                          // }j
+                          // } else if (emailController.text.isNotEmpty) {}
                         },
                         child: const Text(
                           'LogIn',
@@ -198,5 +207,29 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       ),
     );
+  }
+
+  void login(Loginparams loginparams) {
+    ApiInterface apiInterface = ApiInterface();
+    apiInterface.login(loginparams).then((res) {
+      if (res.status == 200) {
+        var data = res.body;
+        print(data);
+        if (data.length > 0) {
+          final StudentResponsemodel studentResponsemodel =
+              StudentResponsemodel.fromJson(data);
+          // StudentResponsemodel studentResponsemodel =
+          //     data.map<StudentResponsemodel>(
+          //         (json) => StudentResponsemodel.fromJson(json));
+          print(studentResponsemodel.user!.firstName);
+          jumpToHomeScreen(context);
+          ScaffoldMessenger.of(context)
+              .showSnackBar(SnackBar(content: Text("Login Sucessfully")));
+        }
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text("Email or Password incorrect")));
+      }
+    });
   }
 }
