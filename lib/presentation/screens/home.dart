@@ -45,39 +45,31 @@ class _HomeScreenState extends State<HomeScreen> {
       'Class 3',
     ];
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(60),
-        child: AppBar(
-          centerTitle: true,
-          backgroundColor: Colors.deepPurple,
-          elevation: 8,
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.only(
-            bottomLeft: Radius.circular(30),
-          )),
-          title: Text(
-            "Attendance",
-            style: TextStyle(
-              color: Colors.black,
-              fontSize: 30,
-            ),
-          ),
-          actions: const [
-            Icon(
-              Icons.person,
-              size: 50,
-              color: Colors.black,
-            ),
-          ],
-          // actions:
-          // Icon(Icons.person)
-          // <Widget>[
-          //   CircleAvatar(
-          //     backgroundImage: AssetImage('assets/images/sadikshya.png'),
-          //     radius: 30,
-          //   )
-          // ],
+      appBar: AppBar(
+        centerTitle: true,
+        backgroundColor: Colors.deepPurple,
+        title: Text(
+          "Attendance",
+          style: TextStyle(
+              color: Colors.black87,
+              fontWeight: FontWeight.bold,
+              fontSize: 22.0),
         ),
+        actions: const [
+          Icon(
+            Icons.person,
+            size: 50,
+            color: Colors.black,
+          ),
+        ],
+        // actions:
+        // Icon(Icons.person)
+        // <Widget>[
+        //   CircleAvatar(
+        //     backgroundImage: AssetImage('assets/images/sadikshya.png'),
+        //     radius: 30,
+        //   )
+        // ],
       ),
       body: Center(
         child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
