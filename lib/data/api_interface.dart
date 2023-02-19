@@ -14,15 +14,14 @@ class ApiInterface {
 
     try {
       await apiClient.dio
-          .post(Apiconstants.loginUrl, data: loginparams)
+          .post(Apiconstants.loginUrl, data: loginparams.toJson())
           .then((response) {
         rs.status = response.statusCode;
         rs.body = response.data;
         print('body');
-        print(rs.status);
+        print(rs.body);
       });
     } on DioError catch (e) {
-      rs.status = e.response!.statusCode;
       rs.body = e.response!.data;
     }
     return rs;
