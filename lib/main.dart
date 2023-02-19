@@ -14,10 +14,12 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Smart Attendance',
       theme: ThemeData(
-        brightness: Brightness.light,
+        brightness: Brightness.dark,
         primarySwatch: Colors.deepPurple,
       ),
       initialRoute: valSplashScreen,
+      // initialRoute: valHomeScreen,
+
       onGenerateRoute: RouteGenerator.generateRoute,
     );
   }
