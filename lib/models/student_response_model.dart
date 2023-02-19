@@ -3,14 +3,17 @@ class StudentResponsemodel {
   User? user;
   String? token;
   String? expiresIn;
+  String? msg;
 
-  StudentResponsemodel({this.success, this.user, this.token, this.expiresIn});
+  StudentResponsemodel(
+      {this.success, this.user, this.token, this.expiresIn, this.msg});
 
   StudentResponsemodel.fromJson(Map<String, dynamic> json) {
     success = json['success'];
     user = json['user'] != null ? new User.fromJson(json['user']) : null;
     token = json['token'];
     expiresIn = json['expiresIn'];
+    msg = json['msg'];
   }
 
   Map<String, dynamic> toJson() {
@@ -21,6 +24,7 @@ class StudentResponsemodel {
     }
     data['token'] = this.token;
     data['expiresIn'] = this.expiresIn;
+    data['msg'] = this.msg;
     return data;
   }
 }
