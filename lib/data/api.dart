@@ -5,7 +5,7 @@ import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:smart_attendance_student/data/api_service.dart';
 
 class Api {
-  Dio dio = new Dio();
+  Dio dio = Dio();
 
   void getClient() async {
     dio.options.baseUrl = Apiconstants.apiUrl;
