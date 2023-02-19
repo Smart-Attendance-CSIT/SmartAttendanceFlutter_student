@@ -18,48 +18,96 @@ class _ClassScreenState extends State<ClassScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final height = MediaQuery.of(context).size.height;
+    final width = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.deepPurple,
-        title: const Text('Class 1'),
-        leading: IconButton(
-          onPressed: (() {}),
-          icon: const Icon(
-            Icons.menu,
-          ),
-        ),
+        title: const Text('Attendance Record'),
+        // leading: IconButton(
+        //   onPressed: (() {}),
+        //   icon: const Icon(
+        //     Icons.menu,
+        //   ),
+        // ),
       ),
       body: Column(
         children: [
-          Center(
-            child: Container(
-              padding: EdgeInsets.all(10),
-              child: Column(children: [
-                Container(
-                  decoration: BoxDecoration(
-                      border: Border.all(), color: Colors.white12),
-                  padding: EdgeInsets.all(20),
-                  child: TableCalendar(
-                    locale: 'en_us',
-                    rowHeight: 50,
-                    headerStyle: const HeaderStyle(
-                        formatButtonVisible: false, titleCentered: true),
-                    availableGestures: AvailableGestures.all,
-                    selectedDayPredicate: ((day) => isSameDay(day, today)),
-                    focusedDay: today,
-                    firstDay: DateTime.utc(2010, 10, 16),
-                    lastDay: DateTime.utc(2030, 3, 13),
-                  ),
+          Container(
+            padding: EdgeInsets.all(5),
+            child: Column(children: [
+              Container(
+                decoration: BoxDecoration(
+                    border: Border.all(), color: Colors.blueGrey[400]),
+                padding: EdgeInsets.all(20),
+                child: TableCalendar(
+                  locale: 'en_us',
+                  rowHeight: 50,
+                  headerStyle: const HeaderStyle(
+                      formatButtonVisible: false, titleCentered: true),
+                  availableGestures: AvailableGestures.all,
+                  selectedDayPredicate: ((day) => isSameDay(day, today)),
+                  focusedDay: today,
+                  firstDay: DateTime.utc(2010, 10, 16),
+                  lastDay: DateTime.utc(2030, 3, 13),
                 ),
-                SizedBox(
-                  height: 30,
+              ),
+              SizedBox(
+                height: 30,
+              ),
+            ]),
+          ),
+          Container(
+            width: width,
+            decoration:
+                BoxDecoration(border: Border.all(), color: Colors.deepPurple),
+            padding: EdgeInsets.all(10),
+            child: Column(
+              children: [
+                Wrap(
+                  alignment: WrapAlignment.spaceEvenly,
+                  children: [
+                    Text(
+                      "25 D",
+                      style: TextStyle(
+                          color: Colors.teal[900],
+                          fontWeight: FontWeight.bold,
+                          fontSize: 25),
+                    ),
+                    Text(
+                      "5 D",
+                      style: TextStyle(
+                          color: Colors.red,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 25),
+                    ),
+                    Text(
+                      "83 % ",
+                      style: TextStyle(
+                          color: Colors.orange,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 25),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Text(
+                          "Present",
+                          style: TextStyle(color: Colors.white, fontSize: 23),
+                        ),
+                        Text(
+                          "Absent",
+                          style: TextStyle(color: Colors.white, fontSize: 23),
+                        ),
+                        Text(
+                          "Total",
+                          style: TextStyle(color: Colors.white, fontSize: 23),
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
-                Container(
-                  padding: EdgeInsets.all(40),
-                  height: 60,
-                  color: Colors.deepPurple,
-                )
-              ]),
+              ],
             ),
           ),
         ],

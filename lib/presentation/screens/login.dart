@@ -32,17 +32,17 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[300],
+      backgroundColor: Colors.blueGrey[900],
       body: SingleChildScrollView(
         child: SafeArea(
           child: Container(
+            color: Colors.blueGrey[900],
             padding: const EdgeInsets.all(20),
             child: Center(
               child: Form(
                 key: _formKey,
                 child: Column(children: [
                   const SizedBox(height: 50),
-
                   //logo
                   const Icon(
                     Icons.account_circle,
@@ -81,7 +81,6 @@ class _LoginScreenState extends State<LoginScreen> {
                       focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.white),
                       ),
-                      fillColor: Colors.grey.shade200,
                       filled: true,
                     ),
                   ),
@@ -106,7 +105,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         focusedBorder: OutlineInputBorder(
                           borderSide: BorderSide(color: Colors.grey.shade400),
                         ),
-                        fillColor: Colors.grey.shade200,
+                        // fillColor: Colors.grey.shade200,
                         filled: true,
                         suffixIcon: IconButton(
                           onPressed: () {
@@ -149,8 +148,6 @@ class _LoginScreenState extends State<LoginScreen> {
                               fontWeight: FontWeight.bold),
                         )),
                   ),
-
-                  const SizedBox(height: 50),
 
                   // //or continue with
                   // Padding(
