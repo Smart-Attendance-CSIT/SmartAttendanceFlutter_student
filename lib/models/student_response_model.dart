@@ -48,7 +48,7 @@ class User {
       this.sessionId});
 
   User.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
+    id = json['sid'];
     firstName = json['firstName'];
     lastName = json['lastName'];
     email = json['email'];
@@ -59,7 +59,7 @@ class User {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
+    data['sid'] = this.id;
     data['firstName'] = this.firstName;
     data['lastName'] = this.lastName;
     data['email'] = this.email;
