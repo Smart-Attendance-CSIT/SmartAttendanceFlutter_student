@@ -3,6 +3,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:smart_attendance_student/config/constants/navigation/app_navigation.dart';
 
+import '../../config/constants/app_theme.dart';
+
 class OptionScreen extends StatefulWidget {
   const OptionScreen({super.key});
 
@@ -36,7 +38,7 @@ class _OptionScreenState extends State<OptionScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.deepPurple,
+        backgroundColor: appColor1,
         title: const Text('Advance Java Programming'),
         centerTitle: true,
       ),
@@ -52,7 +54,7 @@ class _OptionScreenState extends State<OptionScreen> {
                 child: Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
-                    color: Colors.green[400],
+                    color: appColor2,
                   ),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -60,11 +62,11 @@ class _OptionScreenState extends State<OptionScreen> {
                       const Icon(
                         Icons.qr_code_scanner,
                         size: 50,
-                        color: Colors.white,
+                        color: Colors.black,
                       ),
                       Text(
                         "Today's Attendance",
-                        style: TextStyle(color: Colors.white, fontSize: 21),
+                        style: TextStyle(color: Colors.black, fontSize: 21),
                       )
                     ],
                   ),
@@ -77,7 +79,7 @@ class _OptionScreenState extends State<OptionScreen> {
                 child: Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
-                    color: Colors.red[400],
+                    color: Colors.blueGrey,
                   ),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -85,11 +87,11 @@ class _OptionScreenState extends State<OptionScreen> {
                       Icon(
                         Icons.note_add,
                         size: 50,
-                        color: Colors.white,
+                        color: Colors.black,
                       ),
                       Text(
                         "Leave Request",
-                        style: TextStyle(color: Colors.white, fontSize: 22),
+                        style: TextStyle(color: Colors.black, fontSize: 22),
                       )
                     ],
                   ),
@@ -125,7 +127,7 @@ class _OptionScreenState extends State<OptionScreen> {
                 child: Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
-                    color: Colors.blueGrey[400],
+                    color: appColor3,
                   ),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -133,11 +135,11 @@ class _OptionScreenState extends State<OptionScreen> {
                       Icon(
                         Icons.assignment,
                         size: 50,
-                        color: Colors.white,
+                        color: Colors.black,
                       ),
                       Text(
                         "Records",
-                        style: TextStyle(color: Colors.white, fontSize: 22),
+                        style: TextStyle(color: Colors.black, fontSize: 22),
                       )
                     ],
                   ),

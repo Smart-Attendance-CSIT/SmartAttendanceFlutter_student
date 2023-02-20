@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:smart_attendance_student/config/constants/navigation/app_navigation.dart';
 
+import '../../config/constants/app_theme.dart';
+
 class LeaveScreen extends StatefulWidget {
   const LeaveScreen({super.key});
 
@@ -23,7 +25,7 @@ class _LeaveScreenState extends State<LeaveScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.deepPurple,
+        backgroundColor: appColor1,
         title: Text("Leave Request"),
         centerTitle: true,
       ),
@@ -112,6 +114,8 @@ class _LeaveScreenState extends State<LeaveScreen> {
                     height: 50,
                     width: 500,
                     child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: appColor1),
                         onPressed: () {
                           if (_formKey.currentState!.validate()) {
                             ScaffoldMessenger.of(context).showSnackBar(SnackBar(

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 
+import '../../config/constants/app_theme.dart';
+
 class ClassScreen extends StatefulWidget {
   const ClassScreen({super.key});
 
@@ -22,7 +24,7 @@ class _ClassScreenState extends State<ClassScreen> {
     final width = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.deepPurple,
+        backgroundColor: appColor1,
         title: const Text('Attendance Record'),
         // leading: IconButton(
         //   onPressed: (() {}),
@@ -37,8 +39,8 @@ class _ClassScreenState extends State<ClassScreen> {
             padding: EdgeInsets.all(5),
             child: Column(children: [
               Container(
-                decoration: BoxDecoration(
-                    border: Border.all(), color: Colors.blueGrey[400]),
+                decoration:
+                    BoxDecoration(border: Border.all(), color: appColor3),
                 padding: EdgeInsets.all(20),
                 child: TableCalendar(
                   locale: 'en_us',
@@ -59,8 +61,7 @@ class _ClassScreenState extends State<ClassScreen> {
           ),
           Container(
             width: width,
-            decoration:
-                BoxDecoration(border: Border.all(), color: Colors.deepPurple),
+            decoration: BoxDecoration(border: Border.all(), color: appColor1),
             padding: EdgeInsets.all(10),
             child: Column(
               children: [
