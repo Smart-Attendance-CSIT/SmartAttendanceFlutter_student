@@ -63,13 +63,17 @@ class _HomeScreenState extends State<HomeScreen> {
                 itemCount: name.length,
                 itemBuilder: (BuildContext context, int index) {
                   return Container(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 10, horizontal: 10),
+                    padding:
+                        const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
                     child: (Card(
-                      elevation: 10,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          side: BorderSide(color: Colors.black)),
+                      elevation: 5,
                       shadowColor: Colors.black,
                       color: appColor4,
                       child: ListTile(
+                        contentPadding: const EdgeInsets.all(10),
                         onTap: (() => jumpToOptionScreen(context)),
                         title: Text(
                           name[index].toString(),

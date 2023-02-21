@@ -38,116 +38,119 @@ class _LoginScreenState extends State<LoginScreen> {
           child: Center(
             child: Form(
               key: _formKey,
-              child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const SizedBox(height: 50),
-                    //logo
-                    const Icon(
-                      Icons.account_circle,
-                      size: 100,
-                      color: appColor1,
-                    ),
-
-                    //Welcome back,you've been missed!
-                    Text(
-                      'Welcome',
-                      style: TextStyle(
-                        color: Colors.grey[700],
-                        fontSize: 16,
+              child: SingleChildScrollView(
+                child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const SizedBox(height: 50),
+                      //logo
+                      const Icon(
+                        Icons.account_circle,
+                        size: 100,
+                        color: appColor1,
                       ),
-                    ),
 
-                    const SizedBox(height: 10),
-
-                    //userfield
-                    TextFormField(
-                      controller: emailController,
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please Enter Email';
-                        }
-                        if (!value.contains('@')) {
-                          return 'Please Enter valid email';
-                        }
-                      },
-                      decoration: const InputDecoration(
-                        prefixIcon: Icon(Icons.email),
-                        hintText: 'Enter Email',
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.black),
+                      //Welcome back,you've been missed!
+                      Text(
+                        'Welcome',
+                        style: TextStyle(
+                          color: Colors.grey[700],
+                          fontSize: 16,
                         ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.white),
-                        ),
-                        filled: true,
                       ),
-                    ),
 
-                    const SizedBox(height: 20),
+                      const SizedBox(height: 10),
 
-                    //passwordfield
-                    TextFormField(
-                      controller: passwordController,
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please Enter Password';
-                        }
-                      },
-                      obscureText: _hidePassword,
-                      decoration: InputDecoration(
-                          prefixIcon: Icon(Icons.lock),
-                          hintText: 'Enter Password',
-                          enabledBorder: const OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.white),
+                      //userfield
+                      TextFormField(
+                        controller: emailController,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please Enter Email';
+                          }
+                          if (!value.contains('@')) {
+                            return 'Please Enter valid email';
+                          }
+                        },
+                        decoration: const InputDecoration(
+                          prefixIcon: Icon(Icons.email),
+                          hintText: 'Enter Email',
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.black),
                           ),
                           focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.grey.shade400),
+                            borderSide: BorderSide(color: Colors.white),
                           ),
-                          // fillColor: Colors.grey.shade200,
                           filled: true,
-                          suffixIcon: IconButton(
-                            onPressed: () {
-                              setState(() {
-                                _hidePassword = !_hidePassword;
-                              });
-                            },
-                            icon: (_hidePassword)
-                                ? const Icon(Icons.remove_red_eye)
-                                : const Icon(Icons.remove_red_eye_outlined),
-                          )),
-                    ),
+                        ),
+                      ),
 
-                    const SizedBox(height: 20),
+                      const SizedBox(height: 20),
 
-                    //sign in button
+                      //passwordfield
+                      TextFormField(
+                        controller: passwordController,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please Enter Password';
+                          }
+                        },
+                        obscureText: _hidePassword,
+                        decoration: InputDecoration(
+                            prefixIcon: Icon(Icons.lock),
+                            hintText: 'Enter Password',
+                            enabledBorder: const OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.white),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide:
+                                  BorderSide(color: Colors.grey.shade400),
+                            ),
+                            // fillColor: Colors.grey.shade200,
+                            filled: true,
+                            suffixIcon: IconButton(
+                              onPressed: () {
+                                setState(() {
+                                  _hidePassword = !_hidePassword;
+                                });
+                              },
+                              icon: (_hidePassword)
+                                  ? const Icon(Icons.remove_red_eye)
+                                  : const Icon(Icons.remove_red_eye_outlined),
+                            )),
+                      ),
 
-                    !isLoading
-                        ? SizedBox(
-                            height: 50,
-                            width: 500,
-                            child: ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                    backgroundColor: Colors.black),
-                                onPressed: () {
-                                  if (_formKey.currentState!.validate()) {
-                                    login(Loginparams(
-                                        email: emailController.text,
-                                        password: passwordController.text));
-                                  }
-                                },
-                                child: const Text(
-                                  'LogIn',
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold),
-                                )),
-                          )
-                        : const Center(
-                            child: CircularProgressIndicator(),
-                          )
-                  ]),
+                      const SizedBox(height: 20),
+
+                      //sign in button
+
+                      !isLoading
+                          ? SizedBox(
+                              height: 50,
+                              width: 500,
+                              child: ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                      backgroundColor: Colors.black),
+                                  onPressed: () {
+                                    if (_formKey.currentState!.validate()) {
+                                      login(Loginparams(
+                                          email: emailController.text,
+                                          password: passwordController.text));
+                                    }
+                                  },
+                                  child: const Text(
+                                    'LogIn',
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold),
+                                  )),
+                            )
+                          : const Center(
+                              child: CircularProgressIndicator(),
+                            )
+                    ]),
+              ),
             ),
           ),
         ),

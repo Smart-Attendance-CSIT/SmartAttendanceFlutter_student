@@ -26,6 +26,7 @@ class _ClassScreenState extends State<ClassScreen> {
       appBar: AppBar(
         backgroundColor: appColor1,
         title: const Text('Attendance Record'),
+        centerTitle: true,
         // leading: IconButton(
         //   onPressed: (() {}),
         //   icon: const Icon(

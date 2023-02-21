@@ -52,17 +52,8 @@ class _SplashScreenState extends State<SplashScreen>
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
-                  Text(
-                    "Smart Attendance",
-                  ),
-                ],
-              ),
               const SizedBox(
-                height: 52,
+                height: 100,
               ),
               Lottie.asset(splashAnimation,
                   height: 300,
@@ -75,18 +66,27 @@ class _SplashScreenState extends State<SplashScreen>
                 height: 100,
               ),
               Row(
+                mainAxisSize: MainAxisSize.min,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: const [
-                  SizedBox(
-                    height: 70,
-                    width: 70,
-                    child: Icon(
-                      Icons.qr_code,
-                      color: Colors.white,
-                    ),
+                  Text(
+                    "SMART ATTENDANCE ©",
                   ),
                 ],
               ),
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.center,
+              //   children: const [
+              //     SizedBox(
+              //       height: 70,
+              //       width: 70,
+              //       child: Icon(
+              //         Icons.qr_code,
+              //         color: Colors.white,
+              //       ),
+              //     ),
+              //   ],
+              // ),
             ],
           )),
     );

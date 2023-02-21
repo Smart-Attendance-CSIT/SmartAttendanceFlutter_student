@@ -44,56 +44,72 @@ class _OptionScreenState extends State<OptionScreen> {
       ),
       body: Container(
         child: Padding(
-          padding: const EdgeInsets.all(10.0),
+          padding: const EdgeInsets.all(20.0),
           child: GridView(
             children: [
-              InkWell(
-                onTap: () {
-                  scanQRCode();
-                },
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    color: appColor2,
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Icon(
-                        Icons.qr_code_scanner,
-                        size: 50,
-                        color: Colors.black,
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: InkWell(
+                  onTap: () {
+                    scanQRCode();
+                  },
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      color: appColor3,
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.qr_code_scanner,
+                            size: 50,
+                            color: Colors.black,
+                          ),
+                          SizedBox(
+                            height: 15,
+                          ),
+                          Text(
+                            "Today's Attendance",
+                            style: TextStyle(color: Colors.black, fontSize: 20),
+                          )
+                        ],
                       ),
-                      Text(
-                        "Today's Attendance",
-                        style: TextStyle(color: Colors.black, fontSize: 21),
-                      )
-                    ],
+                    ),
                   ),
                 ),
               ),
-              InkWell(
-                onTap: () {
-                  jumpToLeaveScreen(context);
-                },
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    color: Colors.blueGrey,
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(
-                        Icons.note_add,
-                        size: 50,
-                        color: Colors.black,
-                      ),
-                      Text(
-                        "Leave Request",
-                        style: TextStyle(color: Colors.black, fontSize: 22),
-                      )
-                    ],
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: InkWell(
+                  onTap: () {
+                    jumpToLeaveScreen(context);
+                  },
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      color: appColor3,
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.note_add,
+                          size: 50,
+                          color: Colors.black,
+                        ),
+                        SizedBox(
+                          height: 15,
+                        ),
+                        Text(
+                          "Leave Request",
+                          style: TextStyle(color: Colors.black, fontSize: 20),
+                        )
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -120,28 +136,34 @@ class _OptionScreenState extends State<OptionScreen> {
               //     ),
               //   ),
               // ),
-              InkWell(
-                onTap: () {
-                  jumpToClassScreen(context);
-                },
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    color: appColor3,
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(
-                        Icons.assignment,
-                        size: 50,
-                        color: Colors.black,
-                      ),
-                      Text(
-                        "Records",
-                        style: TextStyle(color: Colors.black, fontSize: 22),
-                      )
-                    ],
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: InkWell(
+                  onTap: () {
+                    jumpToClassScreen(context);
+                  },
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      color: appColor3,
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.assignment,
+                          size: 50,
+                          color: Colors.black,
+                        ),
+                        SizedBox(
+                          height: 15,
+                        ),
+                        Text(
+                          "Records",
+                          style: TextStyle(color: Colors.black, fontSize: 20),
+                        )
+                      ],
+                    ),
                   ),
                 ),
               ),
