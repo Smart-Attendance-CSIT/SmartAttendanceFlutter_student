@@ -21,9 +21,9 @@ void jumpToClassScreen(BuildContext context) {
   Navigator.of(context).pushNamed(valClassScreen);
 }
 
-void jumpToOptionScreen(BuildContext context) {
-  Navigator.of(context).pushNamed(valOptionScreen);
-}
+// void jumpToOptionScreen(BuildContext context) {
+//   Navigator.of(context).pushNamed(valOptionScreen);
+// }
 
 void jumpToLeaveScreen(BuildContext context) {
   Navigator.of(context).pushNamed(valLeaveScreen);

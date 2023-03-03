@@ -59,4 +59,19 @@ class ApiInterface {
     } catch (e) {}
     return groupsList;
   }
+
+  Future<String> leaveRequest(
+      {required String date,
+      required String message,
+      required String groupId}) async {
+    String uploadMessage = "Something went wrong";
+    await apiClient.getClient();
+    try {
+      await apiClient.dio.post("/groups/$groupId/leaverequest",
+          data: {"date": date, "requestMessage": message}).then((response) {
+        uploadMessage = response.data['msg'];
+      });
+    } catch (e) {}
+    return uploadMessage;
+  }
 }

@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:smart_attendance_student/config/constants/navigation/app_navigation.dart';
 
 import '../../config/constants/app_theme.dart';
+import '../../data/api_interface.dart';
 
 class LeaveScreen extends StatefulWidget {
-  const LeaveScreen({super.key});
+  final String groupCode;
+  const LeaveScreen({super.key, required this.groupCode});
 
   @override
   State<LeaveScreen> createState() => _LeaveScreenState();
@@ -13,13 +15,9 @@ class LeaveScreen extends StatefulWidget {
 class _LeaveScreenState extends State<LeaveScreen> {
   final _formKey = GlobalKey<FormState>();
 //text editing controllers
-  final nameController = TextEditingController();
+  final dateController = TextEditingController();
 
   final reasonController = TextEditingController();
-
-  final emailController = TextEditingController();
-
-  final phoneController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -36,109 +34,125 @@ class _LeaveScreenState extends State<LeaveScreen> {
             child: Center(
               child: Form(
                 key: _formKey,
-                child: Column(children: [
-                  const SizedBox(height: 50),
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const SizedBox(height: 10),
 
-                  //userfield
-                  TextFormField(
-                    controller: nameController,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please Enter Name';
-                      }
-                    },
-                    decoration: InputDecoration(
-                      hintText: 'Enter name',
-                      enabledBorder: const OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.black),
+                      const Text(
+                        "Select Date:  ",
+                        style: labelStyle,
+                        textAlign: TextAlign.left,
                       ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.white),
-                      ),
-                      filled: true,
-                    ),
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  TextFormField(
-                    controller: emailController,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please Enter Email';
-                      }
-                      if (!value.contains('@')) {
-                        return 'Please Enter valid email';
-                      }
-                    },
-                    decoration: InputDecoration(
-                      hintText: 'Enter email',
-                      enabledBorder: const OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.black),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.grey),
-                      ),
-                      filled: true,
-                    ),
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
 
-                  const SizedBox(height: 10),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: TextFormField(
+                          onTap: () async {
+                            FocusScope.of(context)
+                                .requestFocus(new FocusNode());
 
-                  //passwordfield
-                  TextFormField(
-                    controller: reasonController,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please Enter reason';
-                      }
-                    },
-                    decoration: InputDecoration(
-                      hintText: 'Enter reason of leave',
-                      enabledBorder: const OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.black),
+                            DateTime? date = await showDatePicker(
+                                context: context,
+                                initialDate: DateTime.now().toUtc(),
+                                firstDate: DateTime(1900).toUtc(),
+                                lastDate: DateTime(2100).toUtc());
+                            DateTime utcDatetime = date!.toUtc();
+
+                            dateController.text = utcDatetime.toIso8601String();
+                          },
+                          controller: dateController,
+                          decoration: const InputDecoration(
+                            hintText: 'Select Date',
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.black),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.white),
+                            ),
+                            filled: true,
+                          ),
+                        ),
                       ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.grey),
+                      const Text(
+                        "Write leave request message: ",
+                        style: labelStyle,
+                        textAlign: TextAlign.left,
                       ),
-                      filled: true,
-                    ),
-                  ),
+                      SizedBox(
+                        height: 5,
+                      ),
 
-                  const SizedBox(height: 10),
+                      //userfield
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: TextFormField(
+                          minLines: 3,
+                          maxLines: 4,
+                          controller: reasonController,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please write valid reason';
+                            }
+                          },
+                          decoration: const InputDecoration(
+                            hintText: 'Write Reason',
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.black),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.white),
+                            ),
+                            filled: true,
+                          ),
+                        ),
+                      ),
 
-                  SizedBox(
-                    height: 50,
-                    width: 500,
-                    child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: appColor1),
-                        onPressed: () {
-                          if (_formKey.currentState!.validate()) {
-                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                                content: Text("Form submitted sucessfully")));
-                            jumpToOptionScreen(context);
-                          }
-                        },
-                        child: const Text(
-                          'Submit',
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold),
-                        )),
-                  ),
+                      SizedBox(
+                        height: 50,
+                        width: 500,
+                        child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                                backgroundColor: appColor1),
+                            onPressed: () async {
+                              if (_formKey.currentState!.validate()) {
+                                String uploadMessage = await requestLeave(
+                                    dateController.text,
+                                    reasonController.text,
+                                    widget.groupCode);
 
-                  const SizedBox(height: 50),
-                ]),
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(content: Text(uploadMessage)));
+                                // jumpToOptionScreen(context);
+                              }
+                            },
+                            child: const Text(
+                              'Submit',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold),
+                            )),
+                      ),
+
+                      const SizedBox(height: 50),
+                    ]),
               ),
             ),
           ),
         ),
       ),
     );
+  }
+
+  Future<String> requestLeave(
+      String dateTime, String message, String groupCode) async {
+    String uploadStatus = "";
+    ApiInterface apiInterface = ApiInterface();
+    try {
+      uploadStatus = await apiInterface.leaveRequest(
+          date: dateTime, message: message, groupId: groupCode);
+    } catch (e) {}
+    return uploadStatus;
   }
 }

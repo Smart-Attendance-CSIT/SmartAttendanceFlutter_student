@@ -26,13 +26,13 @@ class RouteGenerator {
       case valClassScreen:
         return MaterialPageRoute(
             builder: ((BuildContext context) => const ClassScreen()));
-      case valOptionScreen:
-        return MaterialPageRoute(
-            builder: ((BuildContext context) => const OptionScreen()));
+      // case valOptionScreen:
+      //   return MaterialPageRoute(
+      //       builder: ((BuildContext context) => const OptionScreen()));
 
-      case valLeaveScreen:
-        return MaterialPageRoute(
-            builder: ((BuildContext context) => const LeaveScreen()));
+      // case valLeaveScreen:
+      //   return MaterialPageRoute(
+      //       builder: ((BuildContext context) => const LeaveScreen()));
 
       default:
         return _errorRoute();

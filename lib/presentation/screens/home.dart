@@ -9,6 +9,7 @@ import 'package:smart_attendance_student/config/constants/navigation/app_navigat
 import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:smart_attendance_student/models/group.dart';
+import 'package:smart_attendance_student/presentation/screens/options.dart';
 import '../../config/constants/app_theme.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -88,8 +89,21 @@ class _HomeScreenState extends State<HomeScreen> {
                                     color: appColor4,
                                     child: ListTile(
                                       contentPadding: const EdgeInsets.all(10),
-                                      onTap: (() =>
-                                          jumpToOptionScreen(context)),
+                                      onTap: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) => OptionScreen(
+                                              groupCode:
+                                                  snapshot.data![index].id!,
+                                              groupName:
+                                                  snapshot.data![index].name!,
+                                            ),
+                                          ),
+                                        );
+
+                                        // jumpToOptionScreen(context)
+                                      },
                                       title: Text(
                                         snapshot.data![index].name!,
                                         style: const TextStyle(

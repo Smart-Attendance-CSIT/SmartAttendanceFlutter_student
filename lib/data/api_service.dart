@@ -10,4 +10,5 @@ class Apiconstants {
   static const String loginUrl = "/auth/login";
 
   static const String getAllGroupsUrl = "/groups/all";
+  // static const String leaveRequestUrl = "/"
 }
