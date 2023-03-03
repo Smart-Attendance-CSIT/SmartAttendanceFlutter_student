@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:smart_attendance_student/data/api_service.dart';
+import 'package:smart_attendance_student/models/group.dart';
 import 'package:smart_attendance_student/models/login_params.dart';
 
 import 'api.dart';
@@ -9,7 +10,7 @@ class ApiInterface {
   Api apiClient = Api();
 
   Future<NetworkResponse> login(Loginparams loginparams) async {
-    apiClient.getClient();
+    await apiClient.getClient();
     NetworkResponse rs = NetworkResponse();
 
     try {
@@ -40,5 +41,22 @@ class ApiInterface {
       rs.body = e.response!.data;
     }
     return rs;
+  }
+
+  Future<List<Group>> getGroups() async {
+    await apiClient.getClient();
+    List<Group> groupsList = [];
+    try {
+      await apiClient.dio.get(Apiconstants.getAllGroupsUrl).then((response) {
+        if (response.statusCode == 200) {
+          var responseData = response.data;
+          for (Map<String, dynamic> element in responseData['groups']) {
+            var group = Group.fromJson(element);
+            groupsList.add(group);
+          }
+        } else if (response.statusCode == 404) {}
+      });
+    } catch (e) {}
+    return groupsList;
   }
 }

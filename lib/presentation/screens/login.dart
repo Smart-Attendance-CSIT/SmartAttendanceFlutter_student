@@ -103,8 +103,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               borderSide: BorderSide(color: Colors.white),
                             ),
                             focusedBorder: OutlineInputBorder(
-                              borderSide:
-                                  BorderSide(color: Colors.grey.shade400),
+                              borderSide: BorderSide(color: Colors.white),
                             ),
                             // fillColor: Colors.grey.shade200,
                             filled: true,
@@ -171,7 +170,7 @@ class _LoginScreenState extends State<LoginScreen> {
         SharedPreferences sharedPreferences =
             await SharedPreferences.getInstance();
         sharedPreferences.setString("user", studentResponsemodel.user!.id!);
-        sharedPreferences.setString("key", studentResponsemodel.token!);
+        sharedPreferences.setString("token", studentResponsemodel.token!);
         ScaffoldMessenger.of(context)
             .showSnackBar(SnackBar(content: Text("Logged in!")));
         jumpToHomeScreen(context);

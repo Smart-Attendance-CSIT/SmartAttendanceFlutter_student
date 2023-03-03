@@ -3,10 +3,12 @@ import 'package:flutter/src/widgets/basic.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:smart_attendance_student/data/api_interface.dart';
 import 'package:smart_attendance_student/main.dart';
 import 'package:smart_attendance_student/config/constants/navigation/app_navigation.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
+import 'package:smart_attendance_student/models/group.dart';
 import '../../config/constants/app_theme.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -56,58 +58,73 @@ class _HomeScreenState extends State<HomeScreen> {
           )
         ],
       ),
-      body: Center(
-        child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-          Expanded(
-            child: ListView.builder(
-                itemCount: name.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return Container(
-                    padding:
-                        const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
-                    child: (Card(
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          side: BorderSide(color: Colors.black)),
-                      elevation: 5,
-                      shadowColor: Colors.black,
-                      color: appColor4,
-                      child: ListTile(
-                        contentPadding: const EdgeInsets.all(10),
-                        onTap: (() => jumpToOptionScreen(context)),
-                        title: Text(
-                          name[index].toString(),
-                          style: const TextStyle(
-                            color: Colors.black,
-                            fontSize: 20,
-                            // fontWeight: FontWeight.bold,
-                          ),
+      body: FutureBuilder(
+        future: getGroups(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.done) {
+            if (snapshot.hasError) {
+              // show snackbar message
+              return Text("Error Fetching Groups");
+            } else {
+              if (snapshot.hasData) {
+                return Center(
+                  child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Expanded(
+                          child: ListView.builder(
+                              itemCount: snapshot.data!.length,
+                              itemBuilder: (BuildContext context, int index) {
+                                return Container(
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical: 5, horizontal: 5),
+                                  child: (Card(
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(10),
+                                        side: const BorderSide(
+                                            color: Colors.black)),
+                                    elevation: 5,
+                                    shadowColor: Colors.black,
+                                    color: appColor4,
+                                    child: ListTile(
+                                      contentPadding: const EdgeInsets.all(10),
+                                      onTap: (() =>
+                                          jumpToOptionScreen(context)),
+                                      title: Text(
+                                        snapshot.data![index].name!,
+                                        style: const TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 20,
+                                          // fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      leading: const Icon(
+                                        Icons.menu_book,
+                                        color: Colors.black,
+                                        size: 27,
+                                      ),
+                                    ),
+                                  )),
+                                );
+                              }),
                         ),
-                        leading: const Icon(
-                          Icons.menu_book,
-                          color: Colors.black,
-                          size: 27,
-                        ),
-                      ),
-                    )),
-                  );
-                }),
-          ),
-          // SizedBox(
-          //   height: 100,
-          //   width: 100,
-          //   child: FloatingActionButton(
-          //     onPressed: () {
-          //       scanQRCode();
-          //     },
-          //     child: Icon(
-          //       Icons.qr_code_scanner,
-          //       size: 40,
-          //     ),
-          //   ),
-          // ),
-        ]),
+                      ]),
+                );
+              }
+            }
+          }
+
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        },
       ),
     );
+  }
+
+  Future<List<Group>> getGroups() async {
+    ApiInterface apiInterface = ApiInterface();
+    List<Group> groupList = await apiInterface.getGroups();
+    return groupList;
   }
 }
