@@ -74,4 +74,20 @@ class ApiInterface {
     } catch (e) {}
     return uploadMessage;
   }
+
+  Future<String> submitQrForAttendance(
+      {required String token,
+      required String lat,
+      required String lng,
+      required String attendanceId}) async {
+    String uploadMessage = "Something went wrong";
+    await apiClient.getClient();
+    try {
+      await apiClient.dio.post("/attendances/$attendanceId/qr",
+          data: {"qrToken": token, "lat": lat, "lng": lng}).then((response) {
+        uploadMessage = response.data['msg'];
+      });
+    } catch (e) {}
+    return uploadMessage;
+  }
 }

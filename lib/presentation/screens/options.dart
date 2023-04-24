@@ -5,6 +5,7 @@ import 'package:smart_attendance_student/config/constants/navigation/app_navigat
 import 'package:smart_attendance_student/presentation/screens/leave.dart';
 
 import '../../config/constants/app_theme.dart';
+import '../../data/api_interface.dart';
 
 class OptionScreen extends StatefulWidget {
   final String groupName;
@@ -30,6 +31,10 @@ class _OptionScreenState extends State<OptionScreen> {
       });
       print("QRCode_Result:--");
       print(qrCode);
+      String attendanceId = qrCode.split(",").last;
+
+      String uploadMessage =
+          await submitQrForAttendance("5", "5", qrCode, attendanceId);
     } on PlatformException {
       getResult = 'Failed to scan QR Code.';
     }
@@ -159,5 +164,19 @@ class _OptionScreenState extends State<OptionScreen> {
         ),
       ),
     );
+  }
+
+  Future<String> submitQrForAttendance(
+      String lat, String lng, String token, String attendanceId) async {
+    String uploadStatus = "";
+    ApiInterface apiInterface = ApiInterface();
+    setState(() {
+      // isLoading = true;
+    });
+    try {
+      uploadStatus = await apiInterface.submitQrForAttendance(
+          lat: lat, lng: lng, token: token, attendanceId: attendanceId);
+    } catch (e) {}
+    return uploadStatus;
   }
 }
