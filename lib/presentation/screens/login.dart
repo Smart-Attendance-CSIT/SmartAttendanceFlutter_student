@@ -23,6 +23,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
 //text editing controllers
   final emailController = TextEditingController();
+  final otpController = TextEditingController();
 
   final passwordController = TextEditingController();
   bool _hidePassword = true;
@@ -121,6 +122,28 @@ class _LoginScreenState extends State<LoginScreen> {
 
                       const SizedBox(height: 20),
 
+                      TextFormField(
+                        keyboardType: TextInputType.number,
+                        controller: otpController,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please Enter Otp';
+                          }
+                        },
+                        decoration: const InputDecoration(
+                          // prefixIcon: Icon(Icons.),
+                          hintText: 'Enter OTP',
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.black),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.white),
+                          ),
+                          filled: true,
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+
                       //sign in button
 
                       !isLoading
@@ -133,8 +156,10 @@ class _LoginScreenState extends State<LoginScreen> {
                                   onPressed: () {
                                     if (_formKey.currentState!.validate()) {
                                       login(Loginparams(
-                                          email: emailController.text,
-                                          password: passwordController.text));
+                                        email: emailController.text,
+                                        password: passwordController.text,
+                                        otp: otpController.text,
+                                      ));
                                     }
                                   },
                                   child: const Text(
@@ -169,7 +194,7 @@ class _LoginScreenState extends State<LoginScreen> {
       if (studentResponsemodel.success == true) {
         SharedPreferences sharedPreferences =
             await SharedPreferences.getInstance();
-        sharedPreferences.setString("user", studentResponsemodel.user!.id!);
+        sharedPreferences.setString("user", studentResponsemodel.user!.email!);
         sharedPreferences.setString("token", studentResponsemodel.token!);
         ScaffoldMessenger.of(context)
             .showSnackBar(SnackBar(content: Text("Logged in!")));
