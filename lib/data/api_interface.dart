@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:smart_attendance_student/data/api_service.dart';
 import 'package:smart_attendance_student/models/group.dart';
 import 'package:smart_attendance_student/models/login_params.dart';
+import 'package:smart_attendance_student/models/student_summary.dart';
 
 import 'api.dart';
 import 'network_response.dart';
@@ -77,17 +78,32 @@ class ApiInterface {
 
   Future<String> submitQrForAttendance(
       {required String token,
-      required String lat,
-      required String lng,
+      required double lat,
+      required double lng,
       required String attendanceId}) async {
     String uploadMessage = "Something went wrong";
     await apiClient.getClient();
     try {
-      await apiClient.dio.post("/attendances/$attendanceId/qr",
+      await apiClient.dio.post("/attendances/$attendanceId/submit",
           data: {"qrToken": token, "lat": lat, "lng": lng}).then((response) {
         uploadMessage = response.data['msg'];
       });
     } catch (e) {}
     return uploadMessage;
+  }
+
+//student selfSummary
+  Future<StudentSummary> getStudentSelfSummary(
+      {required String startDate,
+      required String endDate,
+      required String groupId}) async {
+    await apiClient.getClient();
+    StudentSummary studentSummary;
+    var response =
+        await apiClient.dio.post(Apiconstants.getStudentSelfSummaryUrl);
+
+    studentSummary = StudentSummary.fromJson(response.data['summary']);
+
+    return studentSummary;
   }
 }

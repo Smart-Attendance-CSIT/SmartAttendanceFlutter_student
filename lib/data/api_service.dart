@@ -12,4 +12,5 @@ class Apiconstants {
 
   static const String getAllGroupsUrl = "/groups/all";
   // static const String leaveRequestUrl = "/"
+  static const String getStudentSelfSummaryUrl = "/users/me/summary";
 }

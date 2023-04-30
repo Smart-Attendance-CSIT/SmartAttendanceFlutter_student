@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:smart_attendance_student/config/constants/navigation/app_navigation.dart';
 import 'package:smart_attendance_student/presentation/screens/leave.dart';
+import 'package:smart_attendance_student/presentation/screens/summary.dart';
 
 import '../../config/constants/app_theme.dart';
 import '../../data/api_interface.dart';
@@ -29,12 +30,12 @@ class _OptionScreenState extends State<OptionScreen> {
       setState(() {
         getResult = qrCode;
       });
-      print("QRCode_Result:--");
-      print(qrCode);
-      String attendanceId = qrCode.split(",").last;
 
-      String uploadMessage =
-          await submitQrForAttendance("5", "5", qrCode, attendanceId);
+      String attendanceId = qrCode.split(",").last;
+      String qrToken = qrCode.split(",").first;
+
+      String uploadMessage = await submitQrForAttendance(
+          -78.8341, -30.1782, qrToken, attendanceId);
     } on PlatformException {
       getResult = 'Failed to scan QR Code.';
     }
@@ -133,7 +134,14 @@ class _OptionScreenState extends State<OptionScreen> {
               padding: const EdgeInsets.all(10.0),
               child: InkWell(
                 onTap: () {
-                  jumpToClassScreen(context);
+                  // jumpToSummaryScreen(context);
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => SummaryScreen(
+                          groupCode: widget.groupCode,
+                        ),
+                      ));
                 },
                 child: Container(
                   decoration: BoxDecoration(
@@ -152,7 +160,7 @@ class _OptionScreenState extends State<OptionScreen> {
                         height: 15,
                       ),
                       Text(
-                        "Records",
+                        "Summary",
                         style: TextStyle(color: Colors.black, fontSize: 20),
                       )
                     ],
@@ -167,7 +175,7 @@ class _OptionScreenState extends State<OptionScreen> {
   }
 
   Future<String> submitQrForAttendance(
-      String lat, String lng, String token, String attendanceId) async {
+      double lat, double lng, String token, String attendanceId) async {
     String uploadStatus = "";
     ApiInterface apiInterface = ApiInterface();
     setState(() {

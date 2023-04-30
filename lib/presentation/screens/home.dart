@@ -22,15 +22,6 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
-    height:
-    MediaQuery.of(context).size.height;
-    width:
-    MediaQuery.of(context).size.width;
-    List<String> name = [
-      'Advanced Java Programming',
-      'Software Project Management',
-      'Data warehousing and data mining',
-    ];
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,

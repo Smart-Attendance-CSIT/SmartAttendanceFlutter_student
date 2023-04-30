@@ -28,3 +28,7 @@ void jumpToClassScreen(BuildContext context) {
 void jumpToLeaveScreen(BuildContext context) {
   Navigator.of(context).pushNamed(valLeaveScreen);
 }
+
+void jumpToSummaryScreen(BuildContext context) {
+  Navigator.of(context).pushNamed(valSummaryScreen);
+}

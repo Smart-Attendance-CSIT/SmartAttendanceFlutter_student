@@ -16,6 +16,7 @@ class MyApp extends StatelessWidget {
       theme:
           ThemeData(brightness: Brightness.light, primaryColor: Colors.black),
       initialRoute: valSplashScreen,
+      // initialRoute: valSummaryScreen,
       // initialRoute: valHomeScreen,
 
       onGenerateRoute: RouteGenerator.generateRoute,
