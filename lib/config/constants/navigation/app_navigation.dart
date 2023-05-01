@@ -17,6 +17,11 @@ void jumpToLoginScreen(BuildContext context) {
       .pushNamedAndRemoveUntil(valLoginScreen, (route) => false);
 }
 
+void jumpToDashboardScreen(BuildContext context) {
+  Navigator.of(context)
+      .pushNamedAndRemoveUntil(valDashboardScreen, (route) => false);
+}
+
 void jumpToClassScreen(BuildContext context) {
   Navigator.of(context).pushNamed(valClassScreen);
 }

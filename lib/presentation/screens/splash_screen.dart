@@ -31,7 +31,9 @@ class _SplashScreenState extends State<SplashScreen>
         if (prefs.getString('user') == "" || prefs.getString('user') == null) {
           jumpToLoginScreen(context);
         } else {
-          jumpToHomeScreen(context);
+          // jumpToHomeScreen(context);
+          // jumpToHomeScreen(context);
+          jumpToDashboardScreen(context);
         }
       }
     });

@@ -48,8 +48,11 @@ class _OptionScreenState extends State<OptionScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: appColor1,
-        title: Text(widget.groupName),
+        backgroundColor: mainColor,
+        title: Text(
+          widget.groupName,
+          style: TextStyle(color: textColor),
+        ),
         centerTitle: true,
       ),
       body: Padding(
@@ -67,7 +70,8 @@ class _OptionScreenState extends State<OptionScreen> {
                 child: Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
-                    color: appColor3,
+                    border: Border.all(width: 1.0, color: Colors.black),
+                    color: appColor4,
                   ),
                   child: Padding(
                     padding: const EdgeInsets.all(10.0),
@@ -108,7 +112,8 @@ class _OptionScreenState extends State<OptionScreen> {
                 child: Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
-                    color: appColor3,
+                    border: Border.all(width: 1.0, color: Colors.black),
+                    color: appColor4,
                   ),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -146,7 +151,8 @@ class _OptionScreenState extends State<OptionScreen> {
                 child: Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
-                    color: appColor3,
+                    border: Border.all(width: 1.0, color: Colors.black),
+                    color: appColor4,
                   ),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,

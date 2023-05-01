@@ -190,15 +190,23 @@ class _LoginScreenState extends State<LoginScreen> {
     apiInterface.login(loginparams).then((res) async {
       StudentResponsemodel studentResponsemodel =
           StudentResponsemodel.fromJson(res.body);
-      print(studentResponsemodel);
+      print(studentResponsemodel.user);
       if (studentResponsemodel.success == true) {
         SharedPreferences sharedPreferences =
             await SharedPreferences.getInstance();
         sharedPreferences.setString("user", studentResponsemodel.user!.email!);
+        sharedPreferences.setString(
+            "userFirstName", studentResponsemodel.user!.firstName!);
+        sharedPreferences.setString(
+            "userLastName", studentResponsemodel.user!.lastName!);
+        sharedPreferences.setString(
+            "userEmail", studentResponsemodel.user!.email!);
+
         sharedPreferences.setString("token", studentResponsemodel.token!);
         ScaffoldMessenger.of(context)
             .showSnackBar(SnackBar(content: Text("Logged in!")));
-        jumpToHomeScreen(context);
+        // jumpToHomeScreen(context);
+        jumpToDashboardScreen(context);
       } else {
         ScaffoldMessenger.of(context)
             .showSnackBar(SnackBar(content: Text(studentResponsemodel.msg!)));

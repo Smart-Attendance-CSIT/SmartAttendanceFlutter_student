@@ -20,35 +20,96 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  String userFirstName = "";
+  String userLastName = "";
+  String userEmail = "";
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    getStudentInformation();
+
+    super.initState();
+  }
+
+  void getStudentInformation() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+
+    setState(() {
+      userFirstName = sharedPreferences.getString("userFirstName")!;
+      userLastName = sharedPreferences.getString("userLastName")!;
+      userEmail = sharedPreferences.getString("userEmail")!;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: Drawer(
+        child: ListView(
+          // Important: Remove any padding from the ListView.
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            UserAccountsDrawerHeader(
+              accountName: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text('${userFirstName} ${userLastName}'),
+                ],
+              ),
+              accountEmail: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(userEmail),
+                ],
+              ),
+              currentAccountPicture: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const CircleAvatar(
+                    backgroundColor: Colors.white,
+                    child: Icon(Icons.account_circle_rounded),
+                  ),
+                ],
+              ),
+            ),
+            ListTile(
+              leading: Icon(Icons.contacts),
+              title: Text("Contact Us"),
+              onTap: () {
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.logout),
+              title: Text("Logout"),
+              onTap: () {
+                TextButton(
+                  onPressed: () async {
+                    SharedPreferences sharedPreferences =
+                        await SharedPreferences.getInstance();
+                    sharedPreferences.setString("user", "");
+                    sharedPreferences.setString("key", "");
+                    jumpToLoginScreen(context);
+                  },
+                  child: const Text(
+                    "Logout",
+                    style: TextStyle(color: Colors.white),
+                  ),
+                );
+              },
+            ),
+          ],
+        ),
+      ),
       appBar: AppBar(
         centerTitle: true,
         backgroundColor: appColor1,
         title: const Text(
-          "Classes",
+          "Smart Attendance",
           style: TextStyle(
               color: Colors.white, fontWeight: FontWeight.bold, fontSize: 22.0),
         ),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: TextButton(
-              onPressed: () async {
-                SharedPreferences sharedPreferences =
-                    await SharedPreferences.getInstance();
-                sharedPreferences.setString("user", "");
-                sharedPreferences.setString("key", "");
-                jumpToLoginScreen(context);
-              },
-              child: const Text(
-                "Logout",
-                style: TextStyle(color: Colors.white),
-              ),
-            ),
-          )
-        ],
       ),
       body: FutureBuilder(
         future: getGroups(),

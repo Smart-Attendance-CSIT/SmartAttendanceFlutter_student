@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:smart_attendance_student/config/constants/nav_constants.dart';
+import 'package:smart_attendance_student/presentation/screens/dashboard.dart';
 import 'package:smart_attendance_student/presentation/screens/error.dart';
 import 'package:smart_attendance_student/presentation/screens/home.dart';
 import 'package:smart_attendance_student/presentation/screens/login.dart';
@@ -24,6 +25,9 @@ class RouteGenerator {
       case valSplashScreen:
         return MaterialPageRoute(
             builder: ((BuildContext context) => const SplashScreen()));
+      case valDashboardScreen:
+        return MaterialPageRoute(
+            builder: ((BuildContext context) => const Dashboard()));
       case valClassScreen:
       // return MaterialPageRoute(
       //     builder: ((BuildContext context) => const RecordScreen()));

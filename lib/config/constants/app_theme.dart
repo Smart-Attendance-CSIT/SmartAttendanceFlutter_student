@@ -7,3 +7,12 @@ const appColor3 = Color(0xffC0EEF2);
 const appColor4 = Color(0xffE9F8F9);
 
 const labelStyle = TextStyle(fontSize: 18, fontWeight: FontWeight.bold);
+
+Color mainColor = Color(0xFFe0aaff);
+Color buttonColor = Color(0xFF9d4edd);
+Color textColor = Color(0xFF3c096c);
+Color whiteColor = Colors.white;
+Color blackColor = Colors.black;
+Color errorColor = Colors.red;
+Color successColor = Colors.green;
+Color secondaryColor = Colors.yellow;

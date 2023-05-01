@@ -20,8 +20,6 @@ class ApiInterface {
           .then((response) {
         rs.status = response.statusCode;
         rs.body = response.data;
-        print('body');
-        print(rs.body);
       });
     } on DioError catch (e) {
       rs.body = e.response!.data;
