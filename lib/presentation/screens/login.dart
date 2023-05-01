@@ -35,146 +35,156 @@ class _LoginScreenState extends State<LoginScreen> {
       body: SafeArea(
         child: Container(
           width: double.infinity,
-          padding: const EdgeInsets.all(20),
-          child: Center(
-            child: Form(
-              key: _formKey,
-              child: SingleChildScrollView(
-                child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const SizedBox(height: 50),
-                      //logo
-                      const Icon(
-                        Icons.account_circle,
-                        size: 100,
-                        color: appColor1,
+          padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
+          child: Form(
+            key: _formKey,
+            child: SingleChildScrollView(
+              child:
+                  Column(mainAxisAlignment: MainAxisAlignment.start, children: [
+                Container(
+                  height: 100,
+                  decoration: BoxDecoration(
+                    // color: Theme.of(context).primaryColor,
+                    color: mainColor,
+
+                    borderRadius: const BorderRadius.only(
+                      bottomRight: Radius.circular(50),
+                    ),
+                  ),
+                ),
+
+                const SizedBox(height: 50),
+                //logo
+                Icon(
+                  Icons.account_circle,
+                  size: 100,
+                  color: mainColor,
+                ),
+
+                //Welcome back,you've been missed!
+                Text(
+                  'SMART ATTENDANCE',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: textColor,
+                    fontSize: 16,
+                  ),
+                ),
+
+                const SizedBox(height: 10),
+
+                //userfield
+                TextFormField(
+                  controller: emailController,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please Enter Email';
+                    }
+                    if (!value.contains('@')) {
+                      return 'Please Enter valid email';
+                    }
+                  },
+                  decoration: const InputDecoration(
+                    prefixIcon: Icon(Icons.email),
+                    hintText: 'Enter Email',
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.black),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.white),
+                    ),
+                    filled: true,
+                  ),
+                ),
+
+                const SizedBox(height: 20),
+
+                //passwordfield
+                TextFormField(
+                  controller: passwordController,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please Enter Password';
+                    }
+                  },
+                  obscureText: _hidePassword,
+                  decoration: InputDecoration(
+                      prefixIcon: Icon(Icons.lock),
+                      hintText: 'Enter Password',
+                      enabledBorder: const OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.white),
                       ),
-
-                      //Welcome back,you've been missed!
-                      Text(
-                        'Welcome',
-                        style: TextStyle(
-                          color: Colors.grey[700],
-                          fontSize: 16,
-                        ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.white),
                       ),
-
-                      const SizedBox(height: 10),
-
-                      //userfield
-                      TextFormField(
-                        controller: emailController,
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please Enter Email';
-                          }
-                          if (!value.contains('@')) {
-                            return 'Please Enter valid email';
-                          }
+                      // fillColor: Colors.grey.shade200,
+                      filled: true,
+                      suffixIcon: IconButton(
+                        onPressed: () {
+                          setState(() {
+                            _hidePassword = !_hidePassword;
+                          });
                         },
-                        decoration: const InputDecoration(
-                          prefixIcon: Icon(Icons.email),
-                          hintText: 'Enter Email',
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.black),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.white),
-                          ),
-                          filled: true,
-                        ),
-                      ),
+                        icon: (_hidePassword)
+                            ? const Icon(Icons.remove_red_eye)
+                            : const Icon(Icons.remove_red_eye_outlined),
+                      )),
+                ),
 
-                      const SizedBox(height: 20),
+                const SizedBox(height: 20),
 
-                      //passwordfield
-                      TextFormField(
-                        controller: passwordController,
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please Enter Password';
-                          }
-                        },
-                        obscureText: _hidePassword,
-                        decoration: InputDecoration(
-                            prefixIcon: Icon(Icons.lock),
-                            hintText: 'Enter Password',
-                            enabledBorder: const OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white),
-                            ),
-                            // fillColor: Colors.grey.shade200,
-                            filled: true,
-                            suffixIcon: IconButton(
-                              onPressed: () {
-                                setState(() {
-                                  _hidePassword = !_hidePassword;
-                                });
-                              },
-                              icon: (_hidePassword)
-                                  ? const Icon(Icons.remove_red_eye)
-                                  : const Icon(Icons.remove_red_eye_outlined),
+                TextFormField(
+                  keyboardType: TextInputType.number,
+                  controller: otpController,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please Enter Otp';
+                    }
+                  },
+                  decoration: const InputDecoration(
+                    // prefixIcon: Icon(Icons.),
+                    hintText: 'Enter OTP',
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.black),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.white),
+                    ),
+                    filled: true,
+                  ),
+                ),
+                const SizedBox(height: 20),
+
+                //sign in button
+
+                !isLoading
+                    ? SizedBox(
+                        height: 50,
+                        width: 500,
+                        child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                                backgroundColor: mainColor),
+                            onPressed: () {
+                              if (_formKey.currentState!.validate()) {
+                                login(Loginparams(
+                                  email: emailController.text,
+                                  password: passwordController.text,
+                                  otp: otpController.text,
+                                ));
+                              }
+                            },
+                            child: const Text(
+                              'Login',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold),
                             )),
-                      ),
-
-                      const SizedBox(height: 20),
-
-                      TextFormField(
-                        keyboardType: TextInputType.number,
-                        controller: otpController,
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please Enter Otp';
-                          }
-                        },
-                        decoration: const InputDecoration(
-                          // prefixIcon: Icon(Icons.),
-                          hintText: 'Enter OTP',
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.black),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.white),
-                          ),
-                          filled: true,
-                        ),
-                      ),
-                      const SizedBox(height: 20),
-
-                      //sign in button
-
-                      !isLoading
-                          ? SizedBox(
-                              height: 50,
-                              width: 500,
-                              child: ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                      backgroundColor: Colors.black),
-                                  onPressed: () {
-                                    if (_formKey.currentState!.validate()) {
-                                      login(Loginparams(
-                                        email: emailController.text,
-                                        password: passwordController.text,
-                                        otp: otpController.text,
-                                      ));
-                                    }
-                                  },
-                                  child: const Text(
-                                    'LogIn',
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.bold),
-                                  )),
-                            )
-                          : const Center(
-                              child: CircularProgressIndicator(),
-                            )
-                    ]),
-              ),
+                      )
+                    : const Center(
+                        child: CircularProgressIndicator(),
+                      )
+              ]),
             ),
           ),
         ),

@@ -24,8 +24,11 @@ class _LeaveScreenState extends State<LeaveScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: appColor1,
-        title: Text("Leave Request"),
+        backgroundColor: mainColor,
+        title: Text(
+          "Leave Request",
+          style: TextStyle(color: textColor),
+        ),
         centerTitle: true,
       ),
       body: !isLoading
@@ -116,7 +119,7 @@ class _LeaveScreenState extends State<LeaveScreen> {
                               width: 500,
                               child: ElevatedButton(
                                   style: ElevatedButton.styleFrom(
-                                      backgroundColor: appColor1),
+                                      backgroundColor: mainColor),
                                   onPressed: () async {
                                     if (_formKey.currentState!.validate()) {
                                       String uploadMessage = await requestLeave(

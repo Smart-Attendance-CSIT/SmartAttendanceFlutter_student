@@ -24,8 +24,11 @@ class _SummaryScreenState extends State<SummaryScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: appColor1,
-        title: Text("Attendance Summary"),
+        backgroundColor: mainColor,
+        title: Text(
+          "Attendance Summary",
+          style: TextStyle(color: textColor),
+        ),
         centerTitle: true,
       ),
       body: SafeArea(
@@ -109,7 +112,7 @@ class _SummaryScreenState extends State<SummaryScreen> {
                     width: 500,
                     child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                            backgroundColor: appColor1),
+                            backgroundColor: mainColor),
                         onPressed: () {
                           getSummary(context, startController.text,
                               endController.text, widget.groupCode);

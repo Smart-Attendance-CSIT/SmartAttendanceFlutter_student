@@ -26,8 +26,11 @@ class _RecordScreenState extends State<RecordScreen> {
     final width = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: appColor1,
-        title: const Text('Attendance Record'),
+        backgroundColor: mainColor,
+        title: Text(
+          'Attendance Record',
+          style: TextStyle(color: textColor),
+        ),
         centerTitle: true,
         // leading: IconButton(
         //   onPressed: (() {}),
@@ -44,7 +47,7 @@ class _RecordScreenState extends State<RecordScreen> {
             child: Column(children: [
               Container(
                 decoration:
-                    BoxDecoration(border: Border.all(), color: appColor3),
+                    BoxDecoration(border: Border.all(), color: mainColor),
                 padding: const EdgeInsets.all(20),
                 child: TableCalendar(
                   locale: 'en_us',
@@ -151,7 +154,9 @@ class _RecordScreenState extends State<RecordScreen> {
                             .roundToDouble()
                             .toString(),
                         style: TextStyle(
-                            fontSize: 30, fontWeight: FontWeight.bold),
+                            fontSize: 30,
+                            fontWeight: FontWeight.bold,
+                            color: textColor),
                       ),
                       SizedBox(
                         width: 10,
@@ -159,7 +164,9 @@ class _RecordScreenState extends State<RecordScreen> {
                       Text(
                         "%",
                         style: TextStyle(
-                            fontSize: 35, fontWeight: FontWeight.bold),
+                            fontSize: 35,
+                            fontWeight: FontWeight.bold,
+                            color: textColor),
                       )
                     ],
                   ),

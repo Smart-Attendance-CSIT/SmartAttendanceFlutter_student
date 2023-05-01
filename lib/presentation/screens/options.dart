@@ -113,7 +113,7 @@ class _OptionScreenState extends State<OptionScreen> {
                       ),
                       Text(
                         "Today's Attendance",
-                        style: TextStyle(color: Colors.black, fontSize: 20),
+                        style: TextStyle(color: textColor, fontSize: 20),
                       ),
                       SizedBox(
                         width: 20,
@@ -183,9 +183,9 @@ class _OptionScreenState extends State<OptionScreen> {
                       SizedBox(
                         width: 20,
                       ),
-                      const Text(
+                      Text(
                         "Leave Request",
-                        style: TextStyle(color: Colors.black, fontSize: 20),
+                        style: TextStyle(color: textColor, fontSize: 20),
                       ),
                       SizedBox(
                         width: 65,
