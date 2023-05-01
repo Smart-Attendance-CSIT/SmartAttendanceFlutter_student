@@ -47,6 +47,7 @@ class _OptionScreenState extends State<OptionScreen> {
     final width = MediaQuery.of(context).size.width;
 
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: mainColor,
         title: Text(
@@ -55,127 +56,224 @@ class _OptionScreenState extends State<OptionScreen> {
         ),
         centerTitle: true,
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: GridView(
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2, mainAxisSpacing: 10, crossAxisSpacing: 10),
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: InkWell(
-                onTap: () {
-                  scanQRCode();
-                },
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    border: Border.all(width: 1.0, color: Colors.black),
-                    color: appColor4,
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: const [
-                        Icon(
-                          Icons.qr_code_scanner,
-                          size: 50,
+      body: GridView(
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          childAspectRatio: 4,
+          crossAxisCount: 1,
+          mainAxisSpacing: 0.001,
+        ),
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(5.0),
+            child: InkWell(
+              onTap: () {
+                scanQRCode();
+              },
+              child: Container(
+                padding: const EdgeInsets.only(left: 30),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(5),
+                    color: Colors.grey[100],
+                    boxShadow: [
+                      BoxShadow(
+                          offset: const Offset(0, 5),
+                          color: Theme.of(context).primaryColor.withOpacity(.2),
+                          spreadRadius: 3,
+                          blurRadius: 5)
+                    ]
+                    // border: Border.all(width: 1.0, color: Colors.black),
+
+                    ),
+                child: Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Row(
+                    // mainAxisAlignment: MainAxisAlignment.start,
+                    // crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      CircleAvatar(
+                        backgroundColor: mainColor,
+                        radius: 30,
+                        child: const Icon(
+                          Icons.qr_code_outlined,
                           color: Colors.black,
                         ),
-                        SizedBox(
-                          height: 15,
-                        ),
-                        Text(
-                          "Today's Attendance",
-                          style: TextStyle(color: Colors.black, fontSize: 20),
-                        )
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: InkWell(
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => LeaveScreen(
-                          groupCode: widget.groupCode,
-                        ),
-                      ));
-                },
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    border: Border.all(width: 1.0, color: Colors.black),
-                    color: appColor4,
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
-                      Icon(
-                        Icons.note_add,
-                        size: 50,
-                        color: Colors.black,
                       ),
                       SizedBox(
-                        height: 15,
+                        width: 20,
+                      ),
+                      SizedBox(
+                        width: 1,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 10),
+                          child: Container(color: Colors.grey),
+                        ),
+                      ),
+                      SizedBox(
+                        width: 20,
                       ),
                       Text(
-                        "Leave Request",
+                        "Today's Attendance",
                         style: TextStyle(color: Colors.black, fontSize: 20),
-                      )
+                      ),
+                      SizedBox(
+                        width: 20,
+                      ),
+                      Icon(
+                        Icons.arrow_forward_ios,
+                        size: 20,
+                        color: Colors.black,
+                      ),
                     ],
                   ),
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: InkWell(
-                onTap: () {
-                  // jumpToSummaryScreen(context);
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => SummaryScreen(
-                          groupCode: widget.groupCode,
+          ),
+          Padding(
+            padding: const EdgeInsets.all(5.0),
+            child: InkWell(
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => LeaveScreen(
+                        groupCode: widget.groupCode,
+                      ),
+                    ));
+              },
+              child: Container(
+                padding: EdgeInsets.only(left: 30),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(5),
+                    color: Colors.grey[100],
+                    boxShadow: [
+                      BoxShadow(
+                          offset: const Offset(0, 5),
+                          color: Theme.of(context).primaryColor.withOpacity(.2),
+                          spreadRadius: 3,
+                          blurRadius: 5)
+                    ]
+                    // border: Border.all(width: 1.0, color: Colors.black),
+
+                    ),
+                child: Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      CircleAvatar(
+                        backgroundColor: mainColor,
+                        radius: 30,
+                        child: const Icon(
+                          Icons.note_add_outlined,
+                          color: Colors.black,
                         ),
-                      ));
-                },
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    border: Border.all(width: 1.0, color: Colors.black),
-                    color: appColor4,
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
-                      Icon(
-                        Icons.assignment,
-                        size: 50,
-                        color: Colors.black,
                       ),
                       SizedBox(
-                        height: 15,
+                        width: 20,
+                      ),
+                      SizedBox(
+                        width: 1,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 10),
+                          child: Container(color: Colors.grey),
+                        ),
+                      ),
+                      SizedBox(
+                        width: 20,
+                      ),
+                      const Text(
+                        "Leave Request",
+                        style: TextStyle(color: Colors.black, fontSize: 20),
+                      ),
+                      SizedBox(
+                        width: 65,
+                      ),
+                      const Icon(
+                        Icons.arrow_forward_ios,
+                        size: 20,
+                        color: Colors.black,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(5.0),
+            child: InkWell(
+              onTap: () {
+                // jumpToSummaryScreen(context);
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => SummaryScreen(
+                        groupCode: widget.groupCode,
+                      ),
+                    ));
+              },
+              child: Container(
+                padding: const EdgeInsets.only(left: 30),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(5),
+                    color: Colors.grey[100],
+                    boxShadow: [
+                      BoxShadow(
+                          offset: const Offset(0, 5),
+                          color: Theme.of(context).primaryColor.withOpacity(.2),
+                          spreadRadius: 3,
+                          blurRadius: 5)
+                    ]
+                    // border: Border.all(width: 1.0, color: Colors.black),
+
+                    ),
+                child: Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      CircleAvatar(
+                        backgroundColor: mainColor,
+                        radius: 30,
+                        child: const Icon(
+                          Icons.assignment_outlined,
+                          color: Colors.black,
+                        ),
+                      ),
+                      SizedBox(
+                        width: 20,
+                      ),
+                      SizedBox(
+                        width: 1,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 10),
+                          child: Container(color: Colors.grey),
+                        ),
+                      ),
+                      SizedBox(
+                        width: 20,
                       ),
                       Text(
                         "Summary",
-                        style: TextStyle(color: Colors.black, fontSize: 20),
-                      )
+                        style: TextStyle(color: textColor, fontSize: 20),
+                      ),
+                      SizedBox(
+                        width: 110,
+                      ),
+                      Icon(
+                        Icons.arrow_forward_ios,
+                        size: 20,
+                        color: Colors.black,
+                      ),
                     ],
                   ),
                 ),
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
