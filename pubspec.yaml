@@ -22,6 +22,8 @@ dependencies:
 
   table_calendar: ^3.0.9
   shared_preferences: ^2.0.17
+  geolocator: ^9.0.2
+  geocoding: ^2.1.0
 
 dev_dependencies:
   flutter_test:

@@ -82,11 +82,14 @@ class ApiInterface {
     String uploadMessage = "Something went wrong";
     await apiClient.getClient();
     try {
-      await apiClient.dio.post("/attendances/$attendanceId/submit",
+      var response = await apiClient.dio.post(
+          "/attendances/$attendanceId/submit",
           data: {"qrToken": token, "lat": lat, "lng": lng}).then((response) {
         uploadMessage = response.data['msg'];
       });
-    } catch (e) {}
+    } catch (e) {
+      print("failed");
+    }
     return uploadMessage;
   }
 

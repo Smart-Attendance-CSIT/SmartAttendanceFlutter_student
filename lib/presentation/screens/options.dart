@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:smart_attendance_student/config/constants/navigation/app_navigation.dart';
 import 'package:smart_attendance_student/presentation/screens/leave.dart';
 import 'package:smart_attendance_student/presentation/screens/summary.dart';
@@ -19,6 +20,7 @@ class OptionScreen extends StatefulWidget {
 }
 
 class _OptionScreenState extends State<OptionScreen> {
+  Position? _currentPosition;
   var getResult = 'QR Code Result';
   void scanQRCode() async {
     try {
@@ -33,9 +35,13 @@ class _OptionScreenState extends State<OptionScreen> {
 
       String attendanceId = qrCode.split(",").last;
       String qrToken = qrCode.split(",").first;
+      await _getCurrentPosition();
 
       String uploadMessage = await submitQrForAttendance(
-          -78.8341, -30.1782, qrToken, attendanceId);
+          _currentPosition?.latitude ?? 0,
+          _currentPosition?.longitude ?? 0,
+          qrToken,
+          attendanceId);
     } on PlatformException {
       getResult = 'Failed to scan QR Code.';
     }
@@ -66,7 +72,8 @@ class _OptionScreenState extends State<OptionScreen> {
           Padding(
             padding: const EdgeInsets.all(5.0),
             child: InkWell(
-              onTap: () {
+              onTap: () async {
+                await _handleLocationPermission();
                 scanQRCode();
               },
               child: Container(
@@ -288,7 +295,52 @@ class _OptionScreenState extends State<OptionScreen> {
     try {
       uploadStatus = await apiInterface.submitQrForAttendance(
           lat: lat, lng: lng, token: token, attendanceId: attendanceId);
-    } catch (e) {}
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text(uploadStatus)));
+    } catch (e) {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(const SnackBar(content: Text("Something went wrong")));
+    }
     return uploadStatus;
+  }
+
+  Future<bool> _handleLocationPermission() async {
+    bool serviceEnabled;
+    LocationPermission permission;
+
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text(
+              'Location services are disabled. Please enable the services')));
+      return false;
+    }
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Location permissions are denied')));
+        return false;
+      }
+    }
+    if (permission == LocationPermission.deniedForever) {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text(
+              'Location permissions are permanently denied, we cannot request permissions.')));
+      return false;
+    }
+    return true;
+  }
+
+  Future<void> _getCurrentPosition() async {
+    final hasPermission = await _handleLocationPermission();
+    if (!hasPermission) return;
+    await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high)
+        .then((Position position) {
+      setState(() => _currentPosition = position);
+    }).catchError((e) {
+      debugPrint(e);
+    });
   }
 }
