@@ -62,10 +62,10 @@ class _LeaveScreenState extends State<LeaveScreen> {
                                       initialDate: DateTime.now().toUtc(),
                                       firstDate: DateTime(1900).toUtc(),
                                       lastDate: DateTime(2100).toUtc());
-                                  DateTime utcDatetime = date!.toUtc();
+                                  // DateTime utcDatetime = date!.toUtc();
 
                                   dateController.text =
-                                      utcDatetime.toIso8601String();
+                                      '${date!.toIso8601String()}Z';
                                 },
                                 controller: dateController,
                                 decoration: const InputDecoration(

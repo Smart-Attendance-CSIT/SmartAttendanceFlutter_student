@@ -56,9 +56,8 @@ class _SummaryScreenState extends State<SummaryScreen> {
                             initialDate: DateTime.now().toUtc(),
                             firstDate: DateTime(1900).toUtc(),
                             lastDate: DateTime(2100).toUtc());
-                        DateTime utcDatetime = date!.toUtc();
 
-                        startController.text = utcDatetime.toIso8601String();
+                        startController.text = '${date!.toIso8601String()}Z';
                       },
                       controller: startController,
                       decoration: const InputDecoration(
@@ -90,9 +89,8 @@ class _SummaryScreenState extends State<SummaryScreen> {
                             initialDate: DateTime.now().toUtc(),
                             firstDate: DateTime(1900).toUtc(),
                             lastDate: DateTime(2100).toUtc());
-                        DateTime utcDatetime = date!.toUtc();
 
-                        endController.text = utcDatetime.toIso8601String();
+                        endController.text = '${date!.toIso8601String()}Z';
                       },
                       controller: endController,
                       decoration: const InputDecoration(
