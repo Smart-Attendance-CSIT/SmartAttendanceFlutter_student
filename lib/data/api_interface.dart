@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:smart_attendance_student/data/api_service.dart';
 import 'package:smart_attendance_student/models/group.dart';
+import 'package:smart_attendance_student/models/leave_request_response.dart';
 import 'package:smart_attendance_student/models/login_params.dart';
 import 'package:smart_attendance_student/models/student_summary.dart';
 
@@ -79,12 +80,15 @@ class ApiInterface {
       required double lat,
       required double lng,
       required String attendanceId}) async {
-    String uploadMessage = "Something went wrong";
+    String uploadMessage = "You are not in group radius.";
     await apiClient.getClient();
     try {
-      var response = await apiClient.dio.post(
-          "/attendances/$attendanceId/submit",
-          data: {"qrToken": token, "lat": lat, "lng": lng}).then((response) {
+      var response =
+          await apiClient.dio.post("/attendances/$attendanceId/submit", data: {
+        "qrToken": token,
+        "lat": lat,
+        "lng": lng,
+      }).then((response) {
         uploadMessage = response.data['msg'];
       });
     } catch (e) {
@@ -106,5 +110,14 @@ class ApiInterface {
     studentSummary = StudentSummary.fromJson(response.data['summary']);
 
     return studentSummary;
+  }
+
+  Future<List<LeaveRequests>> getLeaveRequests(
+      {required String groupId}) async {
+    await apiClient.getClient();
+    var response = await apiClient.dio.get('/groups/$groupId/leaveRequests');
+    LeaveRequestResponse leaveRequestResponse =
+        LeaveRequestResponse.fromJson(response.data);
+    return leaveRequestResponse.leaveRequests!;
   }
 }
