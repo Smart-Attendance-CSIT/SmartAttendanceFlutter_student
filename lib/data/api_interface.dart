@@ -105,7 +105,11 @@ class ApiInterface {
     await apiClient.getClient();
     StudentSummary studentSummary;
     var response =
-        await apiClient.dio.post(Apiconstants.getStudentSelfSummaryUrl);
+        await apiClient.dio.post(Apiconstants.getStudentSelfSummaryUrl, data: {
+      "startDate": startDate,
+      "endDate": endDate,
+      "groupId": groupId,
+    });
 
     studentSummary = StudentSummary.fromJson(response.data['summary']);
 
