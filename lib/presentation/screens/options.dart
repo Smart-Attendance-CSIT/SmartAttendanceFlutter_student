@@ -119,7 +119,7 @@ class _OptionScreenState extends State<OptionScreen> {
                         width: 20,
                       ),
                       Text(
-                        "Today's Attendance",
+                        "Scan QR",
                         style: TextStyle(color: textColor, fontSize: 20),
                       ),
                       SizedBox(
