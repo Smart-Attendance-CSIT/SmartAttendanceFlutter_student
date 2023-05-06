@@ -42,9 +42,9 @@ class _CheckStatusState extends State<CheckStatus> {
                                   Text(
                                       "Date : ${snapshot.data![index].date!.substring(0, 10)}"),
                                   Text(
-                                      "Reviewed By : ${snapshot.data![index].reviewedBy!.firstName} ${snapshot.data![index].reviewedBy!.lastName}"),
+                                      "Reviewed By : ${snapshot.data![index].reviewedBy != null ? snapshot.data![index].reviewedBy!.firstName : ""} ${snapshot.data![index].reviewedBy != null ? snapshot.data![index].reviewedBy!.lastName : ""}"),
                                   Text(
-                                      "Response Message : ${snapshot.data![index].responseMessage}"),
+                                      "Response Message : ${snapshot.data![index].responseMessage ?? ""}"),
                                   Text(
                                       "Status :  ${snapshot.data![index].status}"),
                                 ],
